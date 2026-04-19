@@ -1,0 +1,579 @@
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { CloudinaryService } from '../../../core/services/cloudinary.service';
+
+@Component({
+  selector: 'app-register',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
+  template: `
+    <div class="auth-container">
+      <div class="court-bg">
+        <div class="court-overlay"></div>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="header-banner">
+            <h1>Punta Verde Tennis Club</h1>
+          </div>
+          <p class="header-sub">Create a Player Account</p>
+        </div>
+
+        @if (success) {
+          <div class="alert alert-success">
+            <strong>Registration successful!</strong><br />
+            Your account is pending admin approval. You'll be able to log in once approved.
+          </div>
+          <p class="auth-footer"><a routerLink="/login">Back to Login</a></p>
+        } @else {
+          <form (ngSubmit)="onSubmit()" #f="ngForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input
+                id="name"
+                type="text"
+                [(ngModel)]="name"
+                name="name"
+                required
+                placeholder="John Smith"
+                (input)="onNameChange()"
+                #nameField="ngModel"
+                [class.input-invalid]="nameField.invalid && nameField.touched"
+              />
+              @if (nameField.invalid && nameField.touched) {
+                <span class="field-error">Full name is required.</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                id="username"
+                type="text"
+                [(ngModel)]="username"
+                name="username"
+                required
+                placeholder="Auto-filled from full name"
+                autocomplete="username"
+                #usernameField="ngModel"
+                [class.input-invalid]="usernameField.invalid && usernameField.touched"
+              />
+              @if (usernameField.invalid && usernameField.touched) {
+                <span class="field-error">Username is required.</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                [(ngModel)]="password"
+                name="password"
+                required
+                minlength="6"
+                placeholder="Minimum 6 characters"
+                #passwordField="ngModel"
+                [class.input-invalid]="passwordField.invalid && passwordField.touched"
+              />
+              @if (passwordField.touched) {
+                @if (passwordField.errors?.['required']) {
+                  <span class="field-error">Password is required.</span>
+                } @else if (passwordField.errors?.['minlength']) {
+                  <span class="field-error">Password must be at least 6 characters.</span>
+                }
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email <span class="optional">(optional)</span></label>
+              <input
+                id="email"
+                type="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="you@example.com"
+                email
+                #emailField="ngModel"
+                [class.input-invalid]="emailField.invalid && emailField.touched"
+              />
+              @if (emailField.invalid && emailField.touched) {
+                <span class="field-error">Please enter a valid email address.</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="contact">Contact Number <span class="optional">(optional)</span></label>
+              <input
+                id="contact"
+                type="tel"
+                [(ngModel)]="contactNumber"
+                name="contactNumber"
+                placeholder="+1 555 000 0000"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Gender</label>
+              <div class="gender-group">
+                <label class="gender-option">
+                  <input type="radio" [(ngModel)]="gender" name="gender" value="Male" required />
+                  <span>Male</span>
+                </label>
+                <label class="gender-option">
+                  <input type="radio" [(ngModel)]="gender" name="gender" value="Female" required />
+                  <span>Female</span>
+                </label>
+              </div>
+              @if (!gender && f.submitted) {
+                <span class="field-error">Please select a gender.</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="profileImage"
+                >Profile Picture <span style="color: #dc2626;">(required)</span></label
+              >
+              <div class="image-upload-section">
+                @if (profileImagePreview) {
+                  <div class="image-preview">
+                    <img [src]="profileImagePreview" alt="Profile preview" />
+                    <button type="button" class="btn-remove-image" (click)="removeImage()">
+                      ✕
+                    </button>
+                  </div>
+                } @else {
+                  <label class="image-input-label">
+                    <input
+                      id="profileImage"
+                      type="file"
+                      accept="image/*"
+                      (change)="onImageSelected($event)"
+                      class="image-input"
+                    />
+                    <div class="image-placeholder">
+                      <span>📸</span>
+                      <p>Click to upload a photo</p>
+                      <small>JPEG, PNG, GIF, WebP • Max 5MB</small>
+                    </div>
+                  </label>
+                }
+              </div>
+              @if (imageUploadError) {
+                <span class="field-error">{{ imageUploadError }}</span>
+              }
+              @if (uploadingImage) {
+                <span class="field-info">Uploading image...</span>
+              }
+              @if (!profileImage && f.submitted) {
+                <span class="field-error">Profile picture is required.</span>
+              }
+            </div>
+
+            @if (errorMsg) {
+              <div class="alert alert-error">{{ errorMsg }}</div>
+            }
+
+            <button
+              type="submit"
+              class="btn-primary btn-full"
+              [disabled]="loading || uploadingImage || f.invalid || !profileImage"
+            >
+              {{
+                loading
+                  ? 'Registering...'
+                  : uploadingImage
+                    ? 'Uploading image...'
+                    : 'Create Account'
+              }}
+            </button>
+          </form>
+
+          <p class="auth-footer">Already have an account? <a routerLink="/login">Sign in</a></p>
+        }
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      .auth-container {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        margin: 0;
+        overflow: hidden;
+      }
+      .court-bg {
+        position: absolute;
+        inset: 0;
+        background: url('/tennis-court-surface.png') center center / cover no-repeat;
+      }
+      .court-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 18, 0, 0.35);
+      }
+      .auth-card {
+        position: relative;
+        z-index: 1;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 0;
+        width: 100%;
+        max-width: 480px;
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.55),
+          0 0 1px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+      }
+      .auth-header {
+        text-align: center;
+        margin-bottom: 0;
+      }
+      .header-banner {
+        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        padding: 2rem 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .header-banner h1 {
+        color: #ffffff;
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: -0.5px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      .header-sub {
+        color: #3a7d2c;
+        font-size: 0.9rem;
+        font-weight: 600;
+        font-style: italic;
+        margin: 0.85rem 0 0 0;
+        padding: 0.4rem 1.25rem;
+        background: #f0faf0;
+        border-top: 3px solid #4a8a2a;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      form {
+        padding: 1.25rem 2rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .form-group label {
+        font-size: 0.875rem;
+        color: #111827;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .optional {
+        color: #999;
+        font-size: 0.8rem;
+        font-weight: 400;
+        text-transform: none;
+      }
+      .field-error {
+        font-size: 0.78rem;
+        color: #dc2626;
+        font-weight: 500;
+        margin-top: 0.15rem;
+      }
+      .input-invalid {
+        border-color: #dc2626 !important;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12) !important;
+      }
+      .gender-group {
+        display: flex;
+        gap: 1rem;
+      }
+      .gender-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: 0.95rem;
+        color: #111827;
+        font-weight: 500;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+      .gender-option input[type='radio'] {
+        accent-color: #3a7d2c;
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+      .image-upload-section {
+        display: flex;
+        justify-content: center;
+      }
+      .image-input {
+        display: none;
+      }
+      .image-input-label {
+        width: 100%;
+        cursor: pointer;
+      }
+      .image-placeholder {
+        border: 2px dashed #4a8a2a;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        background: #f9faf9;
+        transition: all 0.3s;
+      }
+      .image-input-label:hover .image-placeholder {
+        background: #f0faf0;
+        border-color: #2d6a1f;
+      }
+      .image-placeholder span {
+        font-size: 2.5rem;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      .image-placeholder p {
+        color: #111827;
+        font-weight: 600;
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+      }
+      .image-placeholder small {
+        color: #6b7280;
+        font-size: 0.8rem;
+        display: block;
+        margin-top: 0.35rem;
+      }
+      .image-preview {
+        position: relative;
+        display: inline-block;
+      }
+      .image-preview img {
+        width: 120px;
+        height: 120px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 3px solid #4a8a2a;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .btn-remove-image {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #dc2626;
+        color: white;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s;
+      }
+      .btn-remove-image:hover {
+        background: #b91c1c;
+        transform: scale(1.1);
+      }
+      .field-info {
+        font-size: 0.78rem;
+        color: #059669;
+        font-weight: 500;
+        margin-top: 0.35rem;
+        display: block;
+      }
+      input:focus {
+        outline: none;
+        border-color: #4a8a2a !important;
+        box-shadow: 0 0 0 3px rgba(74, 138, 42, 0.15) !important;
+      }
+      .btn-primary {
+        margin-top: 0.75rem;
+        border-radius: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: #3a7d2c;
+        border-color: #3a7d2c;
+        box-shadow: 0 4px 12px rgba(58, 125, 44, 0.35);
+      }
+      .btn-primary:hover:not(:disabled) {
+        background: #2d6a1f;
+        border-color: #2d6a1f;
+        box-shadow: 0 6px 16px rgba(58, 125, 44, 0.45);
+      }
+      .btn-primary:disabled {
+        background: #9ca3af;
+        border-color: #9ca3af;
+        box-shadow: none;
+        cursor: not-allowed;
+        opacity: 1;
+      }
+      .auth-footer {
+        text-align: center;
+        padding: 0 2rem 1.5rem;
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+      .auth-footer a {
+        color: #3a7d2c;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .auth-footer a:hover {
+        color: #2d6a1f;
+      }
+      .alert-success {
+        margin: 1.5rem 2rem 0;
+        padding: 1rem;
+        background: #f0faf0;
+        border: 1px solid #4a8a2a;
+        border-radius: 8px;
+        color: #2d6a1f;
+        font-size: 0.9rem;
+      }
+      @media (max-width: 600px) {
+        .header-banner {
+          padding: 1.5rem 1.5rem 1.25rem;
+        }
+        .header-banner h1 {
+          font-size: 1.5rem;
+        }
+        form {
+          padding: 1rem 1.5rem;
+        }
+        .auth-footer {
+          padding: 0 1.5rem 1.25rem;
+        }
+      }
+    `,
+  ],
+})
+export class RegisterComponent {
+  name = '';
+  username = '';
+  email = '';
+  password = '';
+  contactNumber = '';
+  gender = '';
+  loading = false;
+  errorMsg = '';
+  success = false;
+  profileImage: string | null = null;
+  profileImagePreview: string | null = null;
+  uploadingImage = false;
+  imageUploadError = '';
+
+  constructor(
+    private auth: AuthService,
+    private cloudinary: CloudinaryService,
+    private cdr: ChangeDetectorRef,
+  ) {}
+
+  onNameChange() {
+    this.username = this.name.trim().toLowerCase().replace(/\s+/g, '-');
+  }
+
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file) return;
+
+    // Validate image
+    const error = this.cloudinary.validateImage(file);
+    if (error) {
+      this.imageUploadError = error;
+      this.cdr.detectChanges();
+      return;
+    }
+
+    // Show preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.profileImagePreview = reader.result as string;
+      this.cdr.detectChanges();
+    };
+    reader.readAsDataURL(file);
+
+    // Upload to Cloudinary
+    this.uploadingImage = true;
+    this.imageUploadError = '';
+    this.cdr.detectChanges();
+
+    this.cloudinary
+      .uploadImage(file)
+      .then((url) => {
+        this.profileImage = url;
+        this.uploadingImage = false;
+        this.cdr.detectChanges();
+      })
+      .catch((err) => {
+        this.imageUploadError = 'Image upload failed. Please try again.';
+        this.uploadingImage = false;
+        this.profileImagePreview = null;
+        this.cdr.detectChanges();
+      });
+  }
+
+  removeImage() {
+    this.profileImage = null;
+    this.profileImagePreview = null;
+    this.imageUploadError = '';
+    const fileInput = document.getElementById('profileImage') as HTMLInputElement;
+    if (fileInput) fileInput.value = '';
+    this.cdr.detectChanges();
+  }
+
+  onSubmit() {
+    if (!this.name || !this.username || !this.password) return;
+    if (!this.profileImage) {
+      this.errorMsg = 'Profile picture is required. Please upload an image.';
+      this.cdr.detectChanges();
+      return;
+    }
+    this.loading = true;
+    this.errorMsg = '';
+
+    this.auth
+      .register({
+        name: this.name,
+        username: this.username,
+        email: this.email || undefined,
+        password: this.password,
+        contactNumber: this.contactNumber || undefined,
+        gender: this.gender || undefined,
+        profileImage: this.profileImage,
+      })
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          this.success = true;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          this.loading = false;
+          this.errorMsg = err.error?.error || 'Registration failed. Please try again.';
+          this.cdr.detectChanges();
+        },
+      });
+  }
+}

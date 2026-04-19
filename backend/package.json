@@ -1,0 +1,9 @@
+{
+  "name": "pv-tennis-club-backend",
+  "version": "1.0.0",
+  "description": "PV Tennis Club API server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
