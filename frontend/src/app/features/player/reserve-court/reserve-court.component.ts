@@ -156,7 +156,7 @@ interface ActivePlayer { _id: string; name: string; email: string; }
                 </span>
                 <strong class="fee-amount">
                   @if (loadingRates) { — }
-                  @else { {{ computedFee | currency }} }
+                  @else { {{ computedFee | currency: 'PHP' : 'symbol' }} }
                 </strong>
               </div>
             </div>

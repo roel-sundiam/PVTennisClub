@@ -194,31 +194,31 @@ import { RatesService } from '../../../core/services/rates.service';
         <div class="formula-card">
           <div class="formula-row">
             <span>🌙 Without Light Fee</span>
-            <span>= games without light × {{ withoutLightRate | currency }}</span>
+            <span>= games without light × {{ withoutLightRate | currency: 'PHP' : 'symbol' }}</span>
           </div>
           <div class="formula-row">
             <span>💡 With Light Fee</span>
-            <span>= games with light × {{ lightRate | currency }}</span>
+            <span>= games with light × {{ lightRate | currency: 'PHP' : 'symbol' }}</span>
           </div>
           <div class="formula-row">
             <span>🎯 Training 2 Without Light</span>
-            <span>= games × {{ training2WithoutLightRate | currency }}</span>
+            <span>= games × {{ training2WithoutLightRate | currency: 'PHP' : 'symbol' }}</span>
           </div>
           <div class="formula-row">
             <span>🏟️ Training 2 With Light</span>
-            <span>= games × {{ training2LightRate | currency }}</span>
+            <span>= games × {{ training2LightRate | currency: 'PHP' : 'symbol' }}</span>
           </div>
           <div class="formula-row">
             <span>🙋 Ball Boy Fee (if used)</span>
-            <span>= total games × {{ ballBoyRate | currency }}</span>
+            <span>= total games × {{ ballBoyRate | currency: 'PHP' : 'symbol' }}</span>
           </div>
           <div class="formula-row highlight-peak">
             <span>⚡ Reservation — Peak slot</span>
-            <span>= {{ reservationPeakRate | currency }} / hr</span>
+            <span>= {{ reservationPeakRate | currency: 'PHP' : 'symbol' }} / hr</span>
           </div>
           <div class="formula-row highlight-nonpeak">
             <span>🌤️ Reservation — Non-peak slot</span>
-            <span>= {{ reservationNonPeakRate | currency }} / hr</span>
+            <span>= {{ reservationNonPeakRate | currency: 'PHP' : 'symbol' }} / hr</span>
           </div>
         </div>
       </div>

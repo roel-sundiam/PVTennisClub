@@ -23,7 +23,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
             <span class="balance-icon">{{ totals.totalOutstanding > 0 ? '⚠️' : '✅' }}</span>
             <div>
               <div class="balance-amount">
-                {{ totals.totalOutstanding > 0 ? (totals.totalOutstanding | currency) : 'All Paid' }}
+                {{ totals.totalOutstanding > 0 ? (totals.totalOutstanding | currency: 'PHP' : 'symbol') : 'All Paid' }}
               </div>
               <div class="balance-label">{{ totals.totalOutstanding > 0 ? 'Outstanding' : 'Balance' }}</div>
             </div>
@@ -36,12 +36,12 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
             Unpaid
             <span class="tab-badge">{{ totals.unpaidCount }}</span>
           </button>
-          <button class="tab-btn" [class.active]="filterTab === 'paid'" (click)="setFilterTab('paid')">
+<button class="tab-btn" [class.active]="filterTab === 'paid'" (click)="setFilterTab('paid')">
             Paid
             <span class="tab-badge">{{ totals.paidCount }}</span>
           </button>
           <button class="tab-btn" [class.active]="filterTab === 'all'" (click)="setFilterTab('all')">
-            All Charges
+            All
             <span class="tab-badge">{{ totals.totalCharges }}</span>
           </button>
         </div>
@@ -83,9 +83,17 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
                           Session Charge
                         }
                       </h4>
-                      <span class="status-badge" [class.unpaid]="charge.status === 'unpaid'" [class.paid]="charge.status === 'paid'">
-                        {{ charge.status | uppercase }}
-                      </span>
+                      @if (charge.approvalStatus === 'pending') {
+                        <span class="status-badge status-pending">AWAITING APPROVAL</span>
+                      } @else if (charge.approvalStatus === 'approved') {
+                        <span class="status-badge paid">APPROVED</span>
+                      } @else if (charge.approvalStatus === 'rejected') {
+                        <span class="status-badge status-rejected">REJECTED</span>
+                      } @else {
+                        <span class="status-badge" [class.unpaid]="charge.status === 'unpaid'" [class.paid]="charge.status === 'paid'">
+                          {{ charge.status | uppercase }}
+                        </span>
+                      }
                     </div>
 
                     <!-- Date/Reference Info -->
@@ -116,16 +124,22 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
                         </div>
                       }
 
-                      @if (charge.status === 'paid' && charge.paidAt) {
+                      @if (charge.paidAt && charge.approvalStatus !== 'rejected') {
                         <div class="detail-row">
-                          <span class="detail-label">✅ Paid On:</span>
+                          <span class="detail-label">{{ charge.approvalStatus === 'approved' ? '✅ Paid On:' : '📤 Submitted:' }}</span>
                           <span class="detail-value">{{ charge.paidAt | date: 'MMM d, yyyy' : 'UTC' }}</span>
                         </div>
                       }
-                      @if (charge.status === 'paid' && charge.paymentMethod) {
+                      @if (charge.paymentMethod && charge.approvalStatus !== 'rejected') {
                         <div class="detail-row">
                           <span class="detail-label">💳 Method:</span>
                           <span class="detail-value">{{ charge.paymentMethod }}</span>
+                        </div>
+                      }
+                      @if (charge.approvalStatus === 'rejected' && charge.adminNote) {
+                        <div class="detail-row rejection-note">
+                          <span class="detail-label">📝 Note:</span>
+                          <span class="detail-value">{{ charge.adminNote }}</span>
                         </div>
                       }
                     </div>
@@ -135,10 +149,28 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
                   <div class="charge-right">
                     <div class="charge-amount">
                       <span class="amount-label">Amount</span>
-                      <span class="amount-value">{{ charge.amount | currency }}</span>
+                      <span class="amount-value">{{ charge.amount | currency: 'PHP' : 'symbol' }}</span>
                     </div>
 
-                    @if (charge.status === 'unpaid') {
+                    @if (charge.approvalStatus === 'pending') {
+                      <div class="pending-badge">
+                        <i class="fas fa-hourglass-half"></i>
+                        Pending
+                      </div>
+                    } @else if (charge.approvalStatus === 'approved') {
+                      <div class="paid-badge">
+                        <i class="fas fa-check-circle"></i>
+                        Approved
+                      </div>
+                    } @else if (charge.approvalStatus === 'rejected') {
+                      <button
+                        class="pay-btn pay-btn-retry"
+                        [disabled]="payingChargeId === charge._id"
+                        (click)="openPaymentModal(charge)"
+                      >
+                        Re-submit
+                      </button>
+                    } @else if (charge.status === 'unpaid') {
                       <button
                         class="pay-btn"
                         [disabled]="payingChargeId === charge._id"
@@ -177,10 +209,10 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
               <!-- Success Status -->
               @if (paymentSuccessful) {
                 <div class="success-status">
-                  <div class="success-icon">✅</div>
+                  <div class="success-icon">⏳</div>
                   <div class="success-message">
-                    <h4>Payment Logged Successfully!</h4>
-                    <p>Your payment of {{ selectedCharge.amount | currency }} via {{ selectedPaymentMethod }} has been recorded.</p>
+                    <h4>Payment Submitted!</h4>
+                    <p>Your payment of {{ selectedCharge.amount | currency: 'PHP' : 'symbol' }} via {{ selectedPaymentMethod }} has been submitted and is awaiting admin approval.</p>
                   </div>
                 </div>
               } @else {
@@ -223,7 +255,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
               <!-- Amount Display -->
               <div class="amount-box">
                 <div class="amount-label">Amount Due</div>
-                <div class="amount-display">{{ selectedCharge.amount | currency }}</div>
+                <div class="amount-display">{{ selectedCharge.amount | currency: 'PHP' : 'symbol' }}</div>
               </div>
 
               <!-- Payment Method Selection -->
@@ -428,6 +460,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
       text-align: center;
     }
 
+
     .card-body {
       padding: 24px;
     }
@@ -539,6 +572,21 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
       color: #155724;
     }
 
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-rejected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .rejection-note .detail-value {
+      color: #dc3545;
+      font-style: italic;
+    }
+
     .charge-details {
       display: flex;
       flex-direction: column;
@@ -615,6 +663,23 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
       color: #28a745;
       font-weight: 600;
       font-size: 13px;
+    }
+
+    .pending-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #d97706;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .pay-btn-retry {
+      background: #f59e0b;
+    }
+
+    .pay-btn-retry:hover:not(:disabled) {
+      background: #d97706;
     }
 
     .modal-overlay {
@@ -978,6 +1043,7 @@ export class PlayerPaymentsComponent implements OnInit {
     totalOutstanding: 0,
     unpaidCount: 0,
     paidCount: 0,
+    pendingCount: 0,
   };
 
   // Payment modal

@@ -18,6 +18,7 @@ const playerEntrySchema = new mongoose.Schema(
       total: { type: Number, required: true },
     },
     status: { type: String, enum: ["unpaid", "paid"], default: "unpaid" },
+    approvalStatus: { type: String, enum: ["none", "pending", "approved", "rejected"], default: "none" },
     paymentMethod: { type: String, enum: ["GCash", "Cash", "Bank Transfer"] },
     paidAt: { type: Date },
   },

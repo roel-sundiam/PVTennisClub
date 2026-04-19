@@ -23,8 +23,10 @@ const chargeSchema = new mongoose.Schema(
     },
     chargeType: { type: String, enum: ["reservation", "session"], default: "reservation" },
     status: { type: String, enum: ["unpaid", "paid"], default: "unpaid" },
+    approvalStatus: { type: String, enum: ["none", "pending", "approved", "rejected"], default: "none" },
     paymentMethod: { type: String, enum: ["GCash", "Cash", "Bank Transfer"] },
     paidAt: { type: Date },
+    adminNote: { type: String },
   },
   { timestamps: true },
 );

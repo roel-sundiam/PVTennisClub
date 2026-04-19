@@ -64,6 +64,20 @@ export const routes: Routes = [
             (m) => m.AdminReservationsComponent,
           ),
       },
+      {
+        path: 'payment-approvals',
+        loadComponent: () =>
+          import('./features/admin/payment-approvals/payment-approvals.component').then(
+            (m) => m.PaymentApprovalsComponent,
+          ),
+      },
+      {
+        path: 'finance',
+        loadComponent: () =>
+          import('./features/admin/finance/finance.component').then(
+            (m) => m.FinanceComponent,
+          ),
+      },
     ],
   },
   {
@@ -104,6 +118,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/player/my-reservations/my-reservations.component').then(
             (m) => m.MyReservationsComponent,
+          ),
+      },
+      {
+        path: 'payment-approvals',
+        loadComponent: () =>
+          import('./features/player/payment-approvals/player-payment-approvals.component').then(
+            (m) => m.PlayerPaymentApprovalsComponent,
           ),
       },
     ],

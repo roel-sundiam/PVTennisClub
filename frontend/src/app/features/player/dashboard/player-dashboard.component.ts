@@ -27,7 +27,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
             <span class="balance-icon">{{ outstanding > 0 ? '⚠️' : '✅' }}</span>
             <div>
               <div class="balance-amount">
-                {{ outstanding > 0 ? (outstanding | currency) : 'All Paid' }}
+                {{ outstanding > 0 ? (outstanding | currency: 'PHP' : 'symbol') : 'All Paid' }}
               </div>
               <div class="balance-label">{{ outstanding > 0 ? 'Outstanding' : 'Balance' }}</div>
             </div>
@@ -123,8 +123,38 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
                   </div>
                 </div>
 
-                <!-- Admin Dashboard Card (only for admins) -->
+                <!-- Payment Approvals Card (admin/superadmin only) -->
                 @if (auth.isAdmin()) {
+                  <div class="action-card payment-approvals" (click)="navigateTo('/player/payment-approvals')">
+                    <div class="card-badge approvals-badge">Manage</div>
+                    <div class="card-icon-container">
+                      <i class="fas fa-clipboard-check card-icon"></i>
+                    </div>
+                    <h4>Payment Approvals</h4>
+                    <p>Approve payments</p>
+                    <div class="card-footer">
+                      <span class="card-meta">Review →</span>
+                    </div>
+                  </div>
+                }
+
+                <!-- Finance Card (admin/superadmin only) -->
+                @if (auth.isAdmin()) {
+                  <div class="action-card finance" (click)="navigateTo('/admin/finance')">
+                    <div class="card-badge finance-badge">Admin</div>
+                    <div class="card-icon-container">
+                      <i class="fas fa-coins card-icon"></i>
+                    </div>
+                    <h4>Finance</h4>
+                    <p>Approved payments</p>
+                    <div class="card-footer">
+                      <span class="card-meta">View report →</span>
+                    </div>
+                  </div>
+                }
+
+                <!-- Admin Dashboard Card (superadmin only) -->
+                @if (auth.isSuperAdmin()) {
                   <div class="action-card admin-dashboard" (click)="navigateTo('/admin/dashboard')">
                     <div class="card-badge admin-badge">Admin</div>
                     <div class="card-icon-container">
@@ -568,6 +598,58 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         box-shadow:
           0 20px 48px rgba(249, 115, 22, 0.15),
           inset 0 1px 1px rgba(255, 255, 255, 0.8);
+      }
+
+      /* Payment Approvals Card */
+      .action-card.payment-approvals {
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+      .action-card.payment-approvals:hover {
+        background: linear-gradient(135deg, rgba(255, 251, 235, 0.9), rgba(254, 243, 199, 0.9));
+        border-color: rgba(245, 158, 11, 0.6);
+        box-shadow:
+          0 20px 48px rgba(245, 158, 11, 0.15),
+          inset 0 1px 1px rgba(255, 255, 255, 0.8);
+      }
+      .action-card.payment-approvals .card-icon { color: #f59e0b; }
+      .action-card.payment-approvals:hover .card-icon {
+        transform: scale(1.3) rotateZ(-8deg);
+        filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.4));
+      }
+      .approvals-badge {
+        background: rgba(245, 158, 11, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+      }
+      .approvals-badge-rejected {
+        background: rgba(239, 68, 68, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+      }
+      .approvals-badge-clear {
+        background: rgba(34, 197, 94, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+      }
+
+      /* Finance Card */
+      .action-card.finance {
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+      .action-card.finance:hover {
+        background: linear-gradient(135deg, rgba(209, 250, 229, 0.9), rgba(167, 243, 208, 0.9));
+        border-color: rgba(16, 185, 129, 0.6);
+        box-shadow: 0 20px 48px rgba(16, 185, 129, 0.15), inset 0 1px 1px rgba(255,255,255,0.8);
+      }
+      .action-card.finance .card-icon { color: #10b981; }
+      .action-card.finance:hover .card-icon {
+        transform: scale(1.3) rotateZ(-8deg);
+        filter: drop-shadow(0 4px 8px rgba(16, 185, 129, 0.4));
+      }
+      .finance-badge {
+        background: rgba(16, 185, 129, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
       }
 
       /* Admin Dashboard Card */
@@ -1064,6 +1146,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         background: rgba(255, 255, 255, 0.8);
       }
 
+
       .calendar-legend {
         display: flex;
         gap: 2rem;
@@ -1505,6 +1588,13 @@ export class PlayerDashboardComponent implements OnInit {
   reservations: Reservation[] = [];
   loading = true;
   outstanding = 0;
+
+  get pendingApprovalCharges(): Charge[] {
+    return this.charges.filter((c) => c.approvalStatus === 'pending');
+  }
+  get rejectedCharges(): Charge[] {
+    return this.charges.filter((c) => c.approvalStatus === 'rejected');
+  }
   currentMonth = new Date();
   weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   calendarDays: any[] = [];
@@ -1527,6 +1617,7 @@ export class PlayerDashboardComponent implements OnInit {
       next: (charges) => {
         console.log('Dashboard: Loaded charges:', charges);
         this.charges = charges;
+        // unpaid covers both genuinely unpaid and pending-approval (which stays unpaid until approved)
         this.outstanding = charges
           .filter((c) => c.status === 'unpaid')
           .reduce((sum, c) => sum + c.amount, 0);

@@ -18,17 +18,9 @@ import { AuthService } from '../../../core/services/auth.service';
         <!-- Desktop Navigation -->
         <div class="nav-links desktop-nav">
           @if (auth.isAdmin()) {
-            <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link-text"
-              >Dashboard</a
-            >
-            <a routerLink="/admin/users" routerLinkActive="active" class="nav-link-text">Users</a>
-            <a routerLink="/admin/rates" routerLinkActive="active" class="nav-link-text">Rates</a>
-            <a routerLink="/admin/sessions" routerLinkActive="active" class="nav-link-text"
-              >Sessions</a
-            >
-            <a routerLink="/admin/reservations" routerLinkActive="active" class="nav-link-text"
-              >Reservations</a
-            >
+            @if (auth.isSuperAdmin()) {
+              <a routerLink="/admin/rates" routerLinkActive="active" class="nav-link-text">Rates</a>
+            }
           }
 
           <!-- Profile Avatar with Image -->
@@ -97,46 +89,16 @@ import { AuthService } from '../../../core/services/auth.service';
           <!-- Mobile Menu Dropdown -->
           @if (mobileMenuOpen && auth.isAdmin()) {
             <div class="mobile-menu-dropdown">
-              <a
-                routerLink="/admin/dashboard"
-                routerLinkActive="active"
-                class="mobile-menu-item"
-                (click)="closeMobileMenu()"
-              >
-                <i class="fas fa-chart-line"></i> Dashboard
-              </a>
-              <a
-                routerLink="/admin/users"
-                routerLinkActive="active"
-                class="mobile-menu-item"
-                (click)="closeMobileMenu()"
-              >
-                <i class="fas fa-users"></i> Users
-              </a>
-              <a
-                routerLink="/admin/rates"
-                routerLinkActive="active"
-                class="mobile-menu-item"
-                (click)="closeMobileMenu()"
-              >
-                <i class="fas fa-dollar-sign"></i> Rates
-              </a>
-              <a
-                routerLink="/admin/sessions"
-                routerLinkActive="active"
-                class="mobile-menu-item"
-                (click)="closeMobileMenu()"
-              >
-                <i class="fas fa-calendar"></i> Sessions
-              </a>
-              <a
-                routerLink="/admin/reservations"
-                routerLinkActive="active"
-                class="mobile-menu-item"
-                (click)="closeMobileMenu()"
-              >
-                <i class="fas fa-calendar-check"></i> Reservations
-              </a>
+              @if (auth.isSuperAdmin()) {
+                <a
+                  routerLink="/admin/rates"
+                  routerLinkActive="active"
+                  class="mobile-menu-item"
+                  (click)="closeMobileMenu()"
+                >
+                  <i class="fas fa-dollar-sign"></i> Rates
+                </a>
+              }
               <div class="mobile-menu-divider"></div>
               <button
                 type="button"

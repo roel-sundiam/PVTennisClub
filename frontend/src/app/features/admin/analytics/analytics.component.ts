@@ -45,7 +45,7 @@ import { forkJoin, timeout } from 'rxjs';
 
         <div class="stat-card stat-revenue">
           <div class="stat-value">
-            {{ summary.totalRevenue | currency: 'USD' : 'symbol' : '1.0-0' }}
+            {{ summary.totalRevenue | currency: 'PHP' : 'symbol' : '1.0-0' }}
           </div>
           <div class="stat-label">Total Revenue</div>
           <div class="stat-meta">All time</div>
@@ -53,7 +53,7 @@ import { forkJoin, timeout } from 'rxjs';
 
         <div class="stat-card stat-collected">
           <div class="stat-value">
-            {{ summary.totalCollected | currency: 'USD' : 'symbol' : '1.0-0' }}
+            {{ summary.totalCollected | currency: 'PHP' : 'symbol' : '1.0-0' }}
           </div>
           <div class="stat-label">Collected</div>
           <div class="stat-meta">Paid charges</div>
@@ -61,7 +61,7 @@ import { forkJoin, timeout } from 'rxjs';
 
         <div class="stat-card stat-outstanding">
           <div class="stat-value">
-            {{ summary.totalOutstanding | currency: 'USD' : 'symbol' : '1.0-0' }}
+            {{ summary.totalOutstanding | currency: 'PHP' : 'symbol' : '1.0-0' }}
           </div>
           <div class="stat-label">Outstanding</div>
           <div class="stat-meta">Unpaid charges</div>
@@ -104,7 +104,7 @@ import { forkJoin, timeout } from 'rxjs';
             <div class="insight-icon">📈</div>
             <div class="insight-text">
               <div class="insight-title">Average per Session</div>
-              <div class="insight-value">{{ getAveragePerSession() | currency }} per session</div>
+              <div class="insight-value">{{ getAveragePerSession() | currency: 'PHP' : 'symbol' }} per session</div>
             </div>
           </div>
         </div>
