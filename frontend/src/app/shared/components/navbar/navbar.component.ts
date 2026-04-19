@@ -18,9 +18,6 @@ import { AuthService } from '../../../core/services/auth.service';
         <!-- Desktop Navigation -->
         <div class="nav-links desktop-nav">
           @if (auth.isAdmin()) {
-            @if (auth.isSuperAdmin()) {
-              <a routerLink="/admin/rates" routerLinkActive="active" class="nav-link-text">Rates</a>
-            }
           }
 
           <!-- Profile Avatar with Image -->
@@ -89,16 +86,6 @@ import { AuthService } from '../../../core/services/auth.service';
           <!-- Mobile Menu Dropdown -->
           @if (mobileMenuOpen && auth.isAdmin()) {
             <div class="mobile-menu-dropdown">
-              @if (auth.isSuperAdmin()) {
-                <a
-                  routerLink="/admin/rates"
-                  routerLinkActive="active"
-                  class="mobile-menu-item"
-                  (click)="closeMobileMenu()"
-                >
-                  <i class="fas fa-dollar-sign"></i> Rates
-                </a>
-              }
               <div class="mobile-menu-divider"></div>
               <button
                 type="button"

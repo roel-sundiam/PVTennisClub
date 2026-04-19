@@ -123,8 +123,35 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
                   </div>
                 </div>
 
-                <!-- Payment Approvals Card (admin/superadmin only) -->
-                @if (auth.isAdmin()) {
+              </div>
+            </div>
+
+            <!-- Club Management Section (admin/superadmin only) -->
+            @if (auth.isAdmin()) {
+              <div class="grid-section">
+                <div class="admin-section-heading">
+                  <div class="admin-section-title-row">
+                    <i class="fas fa-shield-alt admin-section-icon"></i>
+                    <h3 class="grid-title" style="margin:0">Club Management</h3>
+                  </div>
+                  <span class="admin-section-badge">{{ auth.isSuperAdmin() ? 'Super Admin' : 'Admin' }}</span>
+                </div>
+                <div class="action-grid">
+
+                  <!-- Member Management -->
+                  <div class="action-card member-mgmt" (click)="navigateTo('/admin/users')">
+                    <div class="card-badge member-mgmt-badge">Manage</div>
+                    <div class="card-icon-container">
+                      <i class="fas fa-users-cog card-icon"></i>
+                    </div>
+                    <h4>Member Management</h4>
+                    <p>Manage club members</p>
+                    <div class="card-footer">
+                      <span class="card-meta">View members →</span>
+                    </div>
+                  </div>
+
+                  <!-- Payment Approvals -->
                   <div class="action-card payment-approvals" (click)="navigateTo('/player/payment-approvals')">
                     <div class="card-badge approvals-badge">Manage</div>
                     <div class="card-icon-container">
@@ -136,10 +163,8 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
                       <span class="card-meta">Review →</span>
                     </div>
                   </div>
-                }
 
-                <!-- Finance Card (admin/superadmin only) -->
-                @if (auth.isAdmin()) {
+                  <!-- Finance -->
                   <div class="action-card finance" (click)="navigateTo('/admin/finance')">
                     <div class="card-badge finance-badge">Admin</div>
                     <div class="card-icon-container">
@@ -151,39 +176,40 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
                       <span class="card-meta">View report →</span>
                     </div>
                   </div>
-                }
 
-                <!-- Admin Dashboard Card (superadmin only) -->
-                @if (auth.isSuperAdmin()) {
-                  <div class="action-card admin-dashboard" (click)="navigateTo('/admin/dashboard')">
-                    <div class="card-badge admin-badge">Admin</div>
-                    <div class="card-icon-container">
-                      <i class="fas fa-cogs card-icon"></i>
+                  <!-- Admin Dashboard (superadmin only) -->
+                  @if (auth.isSuperAdmin()) {
+                    <div class="action-card admin-dashboard" (click)="navigateTo('/admin/dashboard')">
+                      <div class="card-badge admin-badge">Admin</div>
+                      <div class="card-icon-container">
+                        <i class="fas fa-cogs card-icon"></i>
+                      </div>
+                      <h4>Admin Dashboard</h4>
+                      <p>Manage club</p>
+                      <div class="card-footer">
+                        <span class="card-meta">Manage →</span>
+                      </div>
                     </div>
-                    <h4>Admin Dashboard</h4>
-                    <p>Manage club</p>
-                    <div class="card-footer">
-                      <span class="card-meta">Manage →</span>
-                    </div>
-                  </div>
-                }
+                  }
 
-                <!-- Site Analytics Card (only for superadmins) -->
-                @if (auth.isSuperAdmin()) {
-                  <div class="action-card analytics" (click)="navigateTo('/admin/analytics')">
-                    <div class="card-badge analytics-badge">Analytics</div>
-                    <div class="card-icon-container">
-                      <div style="font-size: 2.5rem;">📊</div>
+                  <!-- Site Analytics (superadmin only) -->
+                  @if (auth.isSuperAdmin()) {
+                    <div class="action-card analytics" (click)="navigateTo('/admin/analytics')">
+                      <div class="card-badge analytics-badge">Analytics</div>
+                      <div class="card-icon-container">
+                        <div style="font-size: 2.5rem;">📊</div>
+                      </div>
+                      <h4>Site Analytics</h4>
+                      <p>View site metrics</p>
+                      <div class="card-footer">
+                        <span class="card-meta">Analytics →</span>
+                      </div>
                     </div>
-                    <h4>Site Analytics</h4>
-                    <p>View site metrics</p>
-                    <div class="card-footer">
-                      <span class="card-meta">Analytics →</span>
-                    </div>
-                  </div>
-                }
+                  }
+
+                </div>
               </div>
-            </div>
+            }
 
             <!-- Court Schedule Calendar -->
             <div class="grid-section">
@@ -480,6 +506,20 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       .grid-section {
         margin-bottom: 2.5rem;
       }
+      .admin-section-heading {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;
+        padding: 12px 16px;
+        background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(109,40,217,0.05));
+        border-radius: 10px; border-left: 4px solid #7c3aed;
+      }
+      .admin-section-title-row { display: flex; align-items: center; gap: 0.6rem; }
+      .admin-section-icon { color: #7c3aed; font-size: 1rem; }
+      .admin-section-badge {
+        font-size: 0.7rem; font-weight: 700; padding: 4px 10px;
+        background: #7c3aed; color: #fff; border-radius: 20px; letter-spacing: 0.4px;
+        text-transform: uppercase;
+      }
       .grid-title {
         color: #2d6a1f;
         font-size: 1.1rem;
@@ -598,6 +638,26 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         box-shadow:
           0 20px 48px rgba(249, 115, 22, 0.15),
           inset 0 1px 1px rgba(255, 255, 255, 0.8);
+      }
+
+      /* Member Management Card */
+      .action-card.member-mgmt {
+        border: 1px solid rgba(14, 165, 233, 0.3);
+      }
+      .action-card.member-mgmt:hover {
+        background: linear-gradient(135deg, rgba(224, 242, 254, 0.9), rgba(186, 230, 253, 0.9));
+        border-color: rgba(14, 165, 233, 0.6);
+        box-shadow: 0 20px 48px rgba(14, 165, 233, 0.15), inset 0 1px 1px rgba(255,255,255,0.8);
+      }
+      .action-card.member-mgmt .card-icon { color: #0ea5e9; }
+      .action-card.member-mgmt:hover .card-icon {
+        transform: scale(1.3) rotateZ(-8deg);
+        filter: drop-shadow(0 4px 8px rgba(14, 165, 233, 0.4));
+      }
+      .member-mgmt-badge {
+        background: rgba(14, 165, 233, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
       }
 
       /* Payment Approvals Card */
