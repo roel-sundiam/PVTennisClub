@@ -123,7 +123,13 @@ import { UsersService, User } from '../../../core/services/users.service';
                       <tr>
                         <td>
                           <div class="table-member">
-                            <div class="table-avatar">{{ getInitials(user.name) }}</div>
+                            <div class="table-avatar">
+                              @if (user.profileImage) {
+                                <img [src]="user.profileImage" [alt]="user.name" class="avatar-img" />
+                              } @else {
+                                {{ getInitials(user.name) }}
+                              }
+                            </div>
                             <div>
                               <div class="table-name">{{ user.name }}</div>
                               <div class="table-email">{{ user.email }}</div>
@@ -276,6 +282,7 @@ import { UsersService, User } from '../../../core/services/users.service';
       color: white; font-size: 0.78rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .table-name { font-weight: 600; color: #1a1a1a; font-size: 0.875rem; }
     .table-email { font-size: 0.75rem; color: #888; margin-top: 1px; }
     .col-contact { color: #555; font-size: 0.82rem; }

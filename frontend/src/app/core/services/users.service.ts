@@ -9,6 +9,7 @@ export interface User {
   role: string;
   status: string;
   contactNumber?: string;
+  profileImage?: string;
   createdAt: string;
 }
 
