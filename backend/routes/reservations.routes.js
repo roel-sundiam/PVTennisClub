@@ -2,6 +2,7 @@ const express = require("express");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const Reservation = require("../models/Reservation");
+const Charge = require("../models/Charge");
 const Rates = require("../models/Rates");
 
 const PEAK_SLOTS = new Set(["5am", "6pm", "7pm", "8pm", "9pm"]);
@@ -40,11 +41,13 @@ router.get("/availability", auth, async (req, res) => {
 // GET /api/reservations/schedule — all confirmed reservations visible to any player
 router.get("/schedule", auth, async (req, res) => {
   try {
+    console.log("GET /schedule - Fetching all club reservations");
     const reservations = await Reservation.find({ status: "confirmed" })
       .populate("player", "name")
       .populate("players", "name")
       .sort({ date: 1, court: 1, timeSlot: 1 })
       .lean();
+    console.log("GET /schedule - Found reservations:", reservations.length);
     res.json(reservations);
   } catch (err) {
     console.error(err);
@@ -55,10 +58,20 @@ router.get("/schedule", auth, async (req, res) => {
 // GET /api/reservations/my — player's own reservations
 router.get("/my", auth, async (req, res) => {
   try {
-    const reservations = await Reservation.find({ player: req.user.userId })
+    console.log("GET /my - User ID:", req.user.userId);
+    // Get reservations where user is either the main player OR in the players array
+    const reservations = await Reservation.find({
+      $or: [
+        { player: req.user.userId },
+        { players: req.user.userId }
+      ]
+    })
+      .populate("player", "name email")
       .populate("players", "name email")
       .sort({ date: -1, timeSlot: 1 })
       .lean();
+    console.log("GET /my - Found reservations:", reservations.length);
+    console.log("GET /my - Reservation data:", JSON.stringify(reservations, null, 2));
     res.json(reservations);
   } catch (err) {
     console.error(err);
@@ -138,7 +151,20 @@ router.post("/", auth, async (req, res) => {
       ratesUsed: { peakRate, nonPeakRate },
     });
 
-    res.status(201).json(reservation);
+    // Automatically create a charge for this reservation
+    const charge = await Charge.create({
+      playerId: req.user.userId,
+      reservationId: reservation._id,
+      amount: courtFee,
+      breakdown: {
+        withoutLightFee: courtFee,
+        lightFee: 0,
+        ballBoyFee: 0,
+      },
+      chargeType: "reservation",
+    });
+
+    res.status(201).json({ reservation, charge });
   } catch (err) {
     if (err.code === 11000) {
       return res.status(409).json({ error: "That slot is already booked" });
@@ -160,6 +186,13 @@ router.patch("/:id/cancel", auth, async (req, res) => {
 
     reservation.status = "cancelled";
     await reservation.save();
+
+    // Cancel associated charge (if it exists and is unpaid)
+    const charge = await Charge.findOne({ reservationId: reservation._id });
+    if (charge && charge.status === "unpaid") {
+      await Charge.deleteOne({ _id: charge._id });
+    }
+
     res.json(reservation);
   } catch (err) {
     console.error(err);

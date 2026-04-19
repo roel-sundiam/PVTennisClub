@@ -108,5 +108,13 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'payments',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/player/payments/payments.component').then(
+        (m) => m.PlayerPaymentsComponent,
+      ),
+  },
   { path: '**', redirectTo: 'login' },
 ];

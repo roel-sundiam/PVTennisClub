@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { SessionsService, Charge } from '../../../core/services/sessions.service';
+import { SessionsService } from '../../../core/services/sessions.service';
+import { ChargesService, Charge } from '../../../core/services/charges.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { ReservationService, Reservation, ReservationPlayer } from '../../../core/services/reservation.service';
 
 @Component({
   selector: 'app-player-dashboard',
@@ -172,70 +174,165 @@ import { AuthService } from '../../../core/services/auth.service';
                     [class.other-month]="!day.currentMonth"
                     [class.today]="day.isToday"
                     [class.has-event]="day.hasEvent"
+                    [class.selected]="isDateSelected(day)"
+                    (click)="selectDay(day)"
                   >
                     <span class="day-number">{{ day.date }}</span>
-                    <div *ngIf="day.hasEvent" class="event-dot"></div>
+                    <div class="day-indicators">
+                      @if (day.reservationCount > 0) {
+                        <div class="indicator-badge reservation-badge" title="Reservations: {{ day.reservationCount }}">
+                          {{ day.reservationCount }}
+                        </div>
+                      }
+                      @if (day.chargeCount > 0) {
+                        <div class="indicator-badge session-badge" title="Sessions: {{ day.chargeCount }}">
+                          {{ day.chargeCount }}
+                        </div>
+                      }
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Session History -->
-            <div class="grid-section">
-              <h3 class="grid-title">Session History</h3>
-
-              @if (charges.length === 0) {
-                <div class="empty-state">
-                  <span>🎾</span>
-                  <p>No sessions recorded yet. Start playing!</p>
+                
+                <!-- Calendar Legend -->
+                <div class="calendar-legend">
+                  <div class="legend-item">
+                    <div class="legend-badge reservation-badge">R</div>
+                    <span>Reservations</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-badge session-badge">S</div>
+                    <span>Sessions</span>
+                  </div>
                 </div>
-              } @else {
-                <div class="charge-list">
-                  @for (charge of charges; track charge._id) {
-                    <div class="charge-card" [class.paid]="charge.status === 'paid'">
-                      <div class="charge-header">
-                        <div>
-                          <div class="session-date">
-                            {{ charge.sessionId.date | date: 'EEE, MMM d, y' }}
-                          </div>
-                          <div class="session-meta">
-                            {{ charge.sessionId.startTime }}
-                            @if (charge.sessionId.ballBoyUsed) {
-                              &nbsp;· 🙋 Ball Boy
-                            }
-                          </div>
-                        </div>
-                        <div class="charge-right">
-                          <div class="charge-total">{{ charge.amount | currency }}</div>
-                          <span class="status-badge status-{{ charge.status }}">{{
-                            charge.status
-                          }}</span>
-                        </div>
-                      </div>
-                      <div class="charge-breakdown">
-                        @if (charge.breakdown.withoutLightFee > 0) {
-                          <div class="breakdown-item">
-                            <span>🌙 Without Light</span>
-                            <span>{{ charge.breakdown.withoutLightFee | currency }}</span>
-                          </div>
-                        }
-                        @if (charge.breakdown.lightFee > 0) {
-                          <div class="breakdown-item">
-                            <span>💡 With Light</span>
-                            <span>{{ charge.breakdown.lightFee | currency }}</span>
-                          </div>
-                        }
-                        @if (charge.breakdown.ballBoyFee > 0) {
-                          <div class="breakdown-item">
-                            <span>🙋 Ball Boy</span>
-                            <span>{{ charge.breakdown.ballBoyFee | currency }}</span>
-                          </div>
-                        }
-                      </div>
+
+                <!-- Selected Day Reservations -->
+                @if (selectedDate) {
+                  <div class="selected-day-section">
+                    <div class="selected-day-header">
+                      <h4 class="selected-day-title">
+                        {{ selectedDate | date: 'EEEE, MMMM d, yyyy' }}
+                      </h4>
+                      <button class="clear-selection-btn" (click)="selectedDate = null" title="Clear selection">
+                        ✕
+                      </button>
                     </div>
-                  }
-                </div>
-              }
+
+                    @if (getSelectedDayReservations().length === 0) {
+                      <div class="empty-reservations">
+                        <p>No reservations on this day</p>
+                      </div>
+                    } @else {
+                      <div class="courts-container">
+                        <!-- Court 1 Section -->
+                        @if (getReservationsByCourtForSelectedDay().court1.length > 0) {
+                          <div class="court-section">
+                            <div class="court-section-header">
+                              <h4 class="court-title">Court 1</h4>
+                              <span class="court-count">{{ getReservationsByCourtForSelectedDay().court1.length }}</span>
+                            </div>
+                            <div class="reservations-list">
+                              @for (reservation of getReservationsByCourtForSelectedDay().court1; track reservation._id) {
+                                <div class="reservation-card">
+                                  <div class="reservation-header">
+                                    <div class="reservation-time">
+                                      <span class="time-label">🕐</span>
+                                      <span class="time-value">{{ formatTimeSlot(reservation.timeSlot) }}</span>
+                                    </div>
+                                    @if (reservation.hasLights) {
+                                      <span class="lights-badge">💡 Lights</span>
+                                    }
+                                  </div>
+                                  <div class="players-info">
+                                    @if (reservation.players && reservation.players.length > 0) {
+                                      <span class="players-label">👥 Players:</span>
+                                    } @else if (isPlayerObject(reservation.player)) {
+                                      <span class="players-label">👤 Reserver:</span>
+                                    }
+                                    <span class="players-list">
+                                      @if (isPlayerObject(reservation.player)) {
+                                        <span class="player-name reserver">{{ reservation.player.name }}</span>
+                                        @if (reservation.players && reservation.players.length > 0) {
+                                          <span class="separator">,</span>
+                                        }
+                                      }
+                                      @if (reservation.players && reservation.players.length > 0) {
+                                        @for (player of reservation.players; track player._id; let last = $last) {
+                                          <span class="player-name">{{ player.name }}</span>
+                                          @if (!last) {
+                                            <span class="separator">,</span>
+                                          }
+                                        }
+                                      }
+                                    </span>
+                                  </div>
+                                  <div class="reservation-status">
+                                    <span class="status-badge" [class.confirmed]="reservation.status === 'confirmed'">
+                                      {{ reservation.status | titlecase }}
+                                    </span>
+                                  </div>
+                                </div>
+                              }
+                            </div>
+                          </div>
+                        }
+
+                        <!-- Court 2 Section -->
+                        @if (getReservationsByCourtForSelectedDay().court2.length > 0) {
+                          <div class="court-section">
+                            <div class="court-section-header">
+                              <h4 class="court-title">Court 2</h4>
+                              <span class="court-count">{{ getReservationsByCourtForSelectedDay().court2.length }}</span>
+                            </div>
+                            <div class="reservations-list">
+                              @for (reservation of getReservationsByCourtForSelectedDay().court2; track reservation._id) {
+                                <div class="reservation-card">
+                                  <div class="reservation-header">
+                                    <div class="reservation-time">
+                                      <span class="time-label">🕐</span>
+                                      <span class="time-value">{{ formatTimeSlot(reservation.timeSlot) }}</span>
+                                    </div>
+                                    @if (reservation.hasLights) {
+                                      <span class="lights-badge">💡 Lights</span>
+                                    }
+                                  </div>
+                                  <div class="players-info">
+                                    @if (reservation.players && reservation.players.length > 0) {
+                                      <span class="players-label">👥 Players:</span>
+                                    } @else if (isPlayerObject(reservation.player)) {
+                                      <span class="players-label">👤 Reserver:</span>
+                                    }
+                                    <span class="players-list">
+                                      @if (isPlayerObject(reservation.player)) {
+                                        <span class="player-name reserver">{{ reservation.player.name }}</span>
+                                        @if (reservation.players && reservation.players.length > 0) {
+                                          <span class="separator">,</span>
+                                        }
+                                      }
+                                      @if (reservation.players && reservation.players.length > 0) {
+                                        @for (player of reservation.players; track player._id; let last = $last) {
+                                          <span class="player-name">{{ player.name }}</span>
+                                          @if (!last) {
+                                            <span class="separator">,</span>
+                                          }
+                                        }
+                                      }
+                                    </span>
+                                  </div>
+                                  <div class="reservation-status">
+                                    <span class="status-badge" [class.confirmed]="reservation.status === 'confirmed'">
+                                      {{ reservation.status | titlecase }}
+                                    </span>
+                                  </div>
+                                </div>
+                              }
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
             </div>
           }
         </div>
@@ -622,7 +719,7 @@ import { AuthService } from '../../../core/services/auth.service';
         color: #f59e0b;
       }
       .action-card.reservations .card-icon {
-        color: #3b82f6;
+        color: #2d6a1f;
       }
       .action-card.payments .card-icon {
         color: #22c55e;
@@ -698,93 +795,6 @@ import { AuthService } from '../../../core/services/auth.service';
       .action-card:hover .card-meta {
         opacity: 1;
         transform: translateY(0);
-      }
-
-      .empty-state {
-        text-align: center;
-        padding: 3rem 1rem;
-        color: #666;
-      }
-      .empty-state span {
-        font-size: 3rem;
-        display: block;
-        margin-bottom: 0.5rem;
-      }
-
-      .charge-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-      .charge-card {
-        background: #fafafa;
-        border-radius: 10px;
-        padding: 1rem 1.25rem;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-        border-left: 4px solid #f59e0b;
-      }
-      .charge-card.paid {
-        border-left-color: #3a7d2c;
-      }
-      .charge-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 0.75rem;
-      }
-      .session-date {
-        font-weight: 600;
-        color: #1a1a1a;
-      }
-      .session-meta {
-        color: #666;
-        font-size: 0.85rem;
-        margin-top: 0.15rem;
-      }
-      .charge-right {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.35rem;
-      }
-      .charge-total {
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: #1a1a1a;
-      }
-      .status-badge {
-        padding: 0.2rem 0.6rem;
-        border-radius: 10px;
-        font-size: 0.76rem;
-        font-weight: 600;
-        text-transform: capitalize;
-      }
-      .status-paid {
-        background: #d1fae5;
-        color: #065f46;
-      }
-      .status-unpaid {
-        background: #fef3c7;
-        color: #92400e;
-      }
-
-      .charge-breakdown {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-      .breakdown-item {
-        background: #f0faf0;
-        border-radius: 6px;
-        padding: 0.35rem 0.7rem;
-        font-size: 0.82rem;
-        display: flex;
-        gap: 0.5rem;
-        color: #555;
-      }
-      .breakdown-item span:last-child {
-        font-weight: 600;
-        color: #2d6a1f;
       }
 
       @media (max-width: 768px) {
@@ -969,7 +979,7 @@ import { AuthService } from '../../../core/services/auth.service';
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         background: #f9faf9;
         border-radius: 10px;
         cursor: pointer;
@@ -979,6 +989,38 @@ import { AuthService } from '../../../core/services/auth.service';
         font-weight: 600;
         color: #1a1a1a;
         font-size: 0.95rem;
+        padding: 0.4rem;
+      }
+      .day-number {
+        flex-shrink: 0;
+      }
+      .day-indicators {
+        display: flex;
+        gap: 0.3rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .indicator-badge {
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        min-width: 18px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .indicator-badge.reservation-badge {
+        background: #dcfce7;
+        color: #15803d;
+        border: 1px solid #86efac;
+      }
+      .indicator-badge.session-badge {
+        background: #fef3c7;
+        color: #b45309;
+        border: 1px solid #f59e0b;
       }
       .calendar-day.other-month {
         color: #ccc;
@@ -989,6 +1031,16 @@ import { AuthService } from '../../../core/services/auth.service';
         color: white;
         font-weight: 700;
         box-shadow: 0 4px 12px rgba(45, 106, 31, 0.3);
+      }
+      .calendar-day.today .indicator-badge.reservation-badge {
+        background: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.95);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .calendar-day.today .indicator-badge.session-badge {
+        background: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.95);
+        border-color: rgba(255, 255, 255, 0.5);
       }
       .calendar-day.has-event:not(.today) {
         background: linear-gradient(135deg, rgba(61, 184, 105, 0.1), rgba(45, 106, 31, 0.1));
@@ -1012,7 +1064,355 @@ import { AuthService } from '../../../core/services/auth.service';
         background: rgba(255, 255, 255, 0.8);
       }
 
+      .calendar-legend {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        font-size: 0.9rem;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .legend-badge {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.2rem 0.4rem;
+      }
+
+      .calendar-day.selected {
+        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        color: white;
+        font-weight: 700;
+        border-color: #4a8a2a;
+        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.4);
+      }
+
+      .selected-day-section {
+        margin-top: 2.5rem;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+        border: none;
+        animation: slideUp 0.3s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .selected-day-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        padding: 0;
+        border-bottom: none;
+      }
+
+      .selected-day-title {
+        color: #0f172a;
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: -0.5px;
+      }
+
+      .clear-selection-btn {
+        background: rgba(45, 106, 31, 0.1);
+        border: none;
+        color: #2d6a1f;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+
+      .clear-selection-btn:hover {
+        background: rgba(45, 106, 31, 0.2);
+        transform: scale(1.05);
+      }
+
+      .empty-reservations {
+        padding: 4rem 2rem;
+        text-align: center;
+        color: #94a3b8;
+        font-style: italic;
+        background: linear-gradient(135deg, rgba(45, 106, 31, 0.05), rgba(74, 138, 42, 0.05));
+        border-radius: 16px;
+        border: 2px dashed rgba(45, 106, 31, 0.1);
+      }
+
+      .courts-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .court-section {
+        background: white;
+        border-radius: 16px;
+        padding: 1.75rem;
+        border: none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .court-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #2d6a1f, #4a8a2a);
+      }
+
+      .court-section:hover {
+        box-shadow: 0 8px 24px rgba(45, 106, 31, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .court-section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        padding: 0;
+        border-bottom: none;
+      }
+
+      .court-title {
+        color: #0f172a;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        letter-spacing: -0.3px;
+      }
+
+      .court-title::before {
+        content: '🏐';
+        font-size: 1.5rem;
+      }
+
+      .court-count {
+        background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border: none;
+        min-width: 40px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(45, 106, 31, 0.3);
+      }
+
+      .reservations-list {
+        display: grid;
+        gap: 1.25rem;
+      }
+
+      .reservation-card {
+        background: linear-gradient(135deg, #f8fafc, #f0f4f8);
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: 1px solid rgba(45, 106, 31, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .reservation-card:hover {
+        background: linear-gradient(135deg, #fff, #f5fafc);
+        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.15);
+        border-color: rgba(45, 106, 31, 0.3);
+        transform: translateX(4px);
+      }
+
+      .reservation-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .reservation-time {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 700;
+        color: #0f172a;
+        font-size: 1.05rem;
+      }
+
+      .time-label {
+        font-size: 1.3rem;
+      }
+
+      .time-value {
+        color: #2d6a1f;
+        font-weight: 800;
+      }
+
+      .court-info {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      .court-badge {
+        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        color: #15803d;
+        padding: 0.4rem 0.9rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: none;
+      }
+
+      .lights-badge {
+        background: linear-gradient(135deg, #fef08a, #fde047);
+        color: #854d0e;
+        padding: 0.4rem 0.9rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: none;
+      }
+
+      .players-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        flex-wrap: wrap;
+        padding: 0.75rem;
+        background: rgba(45, 106, 31, 0.05);
+        border-radius: 8px;
+      }
+
+      .players-label {
+        color: #2d6a1f;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+      }
+
+      .players-list {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+      }
+
+      .player-name {
+        color: #1e293b;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .player-name.reserver {
+        background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+        color: white;
+        padding: 0.35rem 0.75rem;
+        border-radius: 6px;
+        border: none;
+        font-weight: 700;
+        box-shadow: 0 2px 6px rgba(45, 106, 31, 0.3);
+      }
+
+      .separator {
+        color: #cbd5e1;
+        margin: 0 0.25rem;
+      }
+
+      .reservation-status {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .status-badge {
+        background: #e2e8f0;
+        color: #475569;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: capitalize;
+        letter-spacing: 0.3px;
+      }
+
+      .status-badge.confirmed {
+        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        color: #15803d;
+        border: none;
+        box-shadow: 0 2px 6px rgba(45, 106, 31, 0.2);
+      }
+
       @media (max-width: 768px) {
+        .selected-day-title {
+          font-size: 1.5rem;
+        }
+
+        .courts-container {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .court-section {
+          padding: 1.5rem;
+        }
+
+        .court-title {
+          font-size: 1.1rem;
+        }
+
+        .reservation-header {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .reservation-time {
+          font-size: 0.95rem;
+        }
+
+        .players-info {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
         .calendar-container {
           padding: 1rem;
         }
@@ -1033,6 +1433,55 @@ import { AuthService } from '../../../core/services/auth.service';
       }
 
       @media (max-width: 480px) {
+        .selected-day-title {
+          font-size: 1.25rem;
+        }
+
+        .selected-day-header {
+          margin-bottom: 1.5rem;
+        }
+
+        .court-section {
+          padding: 1.25rem;
+          margin: 0 -1.5rem;
+          border-radius: 12px;
+        }
+
+        .court-title {
+          font-size: 1rem;
+        }
+
+        .court-count {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.8rem;
+        }
+
+        .reservation-card {
+          padding: 1rem;
+        }
+
+        .reservation-time {
+          font-size: 0.9rem;
+        }
+
+        .reservation-header {
+          margin-bottom: 0.75rem;
+        }
+
+        .players-info {
+          padding: 0.5rem;
+          gap: 0.5rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .player-name {
+          font-size: 0.85rem;
+        }
+
+        .player-name.reserver {
+          padding: 0.3rem 0.6rem;
+        }
+
         .calendar-container {
           padding: 0.75rem;
         }
@@ -1053,23 +1502,30 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class PlayerDashboardComponent implements OnInit {
   charges: Charge[] = [];
+  reservations: Reservation[] = [];
   loading = true;
   outstanding = 0;
   currentMonth = new Date();
   weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   calendarDays: any[] = [];
+  selectedDate: Date | null = new Date();
 
   constructor(
     public auth: AuthService,
     private sessionsService: SessionsService,
+    private chargesService: ChargesService,
+    private reservationService: ReservationService,
     private cdr: ChangeDetectorRef,
     private router: Router,
   ) {}
 
   ngOnInit() {
     this.generateCalendar();
-    this.sessionsService.getMyCharges().subscribe({
+    
+    // Load charges and reservations in parallel
+    this.chargesService.getMyCharges().subscribe({
       next: (charges) => {
+        console.log('Dashboard: Loaded charges:', charges);
         this.charges = charges;
         this.outstanding = charges
           .filter((c) => c.status === 'unpaid')
@@ -1080,6 +1536,22 @@ export class PlayerDashboardComponent implements OnInit {
       },
       error: () => {
         this.loading = false;
+        this.cdr.detectChanges();
+      },
+    });
+
+    // Load ALL club reservations (not just personal ones) for shared calendar view
+    this.reservationService.getSchedule().subscribe({
+      next: (reservations) => {
+        console.log('Dashboard: All club reservations from schedule:', reservations);
+        this.reservations = reservations;
+        console.log('Dashboard: this.reservations is now:', this.reservations);
+        this.generateCalendar();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Dashboard: Error loading schedule:', err);
+        // Continue even if reservations fail to load
         this.cdr.detectChanges();
       },
     });
@@ -1094,6 +1566,9 @@ export class PlayerDashboardComponent implements OnInit {
     const startingDayOfWeek = firstDay.getDay();
     const today = new Date();
 
+    console.log(`Dashboard Calendar: Generating for ${year}-${month + 1}, days: ${daysInMonth}`);
+    console.log(`Dashboard: Reservations available to filter:`, this.reservations);
+
     this.calendarDays = [];
 
     const prevMonthLastDay = new Date(year, month, 0).getDate();
@@ -1103,35 +1578,58 @@ export class PlayerDashboardComponent implements OnInit {
         currentMonth: false,
         isToday: false,
         hasEvent: false,
+        reservationCount: 0,
+        chargeCount: 0,
       });
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
       const isToday =
         i === today.getDate() && month === today.getMonth() && year === today.getFullYear();
-      const hasEvent = this.charges.some((c) => {
-        const chargeDate = new Date(c.sessionId.date);
+      
+      // Check for charges (sessions or reservations)
+      const chargeCount = this.charges.filter((c) => {
+        let chargeDate: Date | null = null;
+        
+        if (c.chargeType === 'session' && c.sessionId) {
+          chargeDate = new Date(c.sessionId.date);
+        } else if (c.chargeType === 'reservation' && c.reservationId) {
+          chargeDate = new Date(c.reservationId.date);
+        }
+        
+        if (!chargeDate) return false;
+        
         return (
           chargeDate.getDate() === i &&
           chargeDate.getMonth() === month &&
           chargeDate.getFullYear() === year
         );
-      });
+      }).length;
+
+      // Check for reservations
+      const reservationCount = this.reservations.filter((r) => {
+        const reservationDate = new Date(r.date);
+        const matches =
+          reservationDate.getDate() === i &&
+          reservationDate.getMonth() === month &&
+          reservationDate.getFullYear() === year;
+        
+        if (matches) {
+          console.log(`Dashboard: Found reservation on day ${i}: `, r);
+        }
+        
+        return matches;
+      }).length;
+
+      const hasEvent = chargeCount > 0 || reservationCount > 0;
+
       this.calendarDays.push({
         date: i,
         currentMonth: true,
         isToday,
         hasEvent,
-      });
-    }
-
-    const remainingDays = 42 - this.calendarDays.length;
-    for (let i = 1; i <= remainingDays; i++) {
-      this.calendarDays.push({
-        date: i,
-        currentMonth: false,
-        isToday: false,
-        hasEvent: false,
+        reservationCount,
+        chargeCount,
       });
     }
   }
@@ -1148,5 +1646,73 @@ export class PlayerDashboardComponent implements OnInit {
 
   navigateTo(route: string) {
     this.router.navigate([route]);
+  }
+
+  selectDay(day: any) {
+    if (!day.currentMonth) return; // Only select days in current month
+    const year = this.currentMonth.getFullYear();
+    const month = this.currentMonth.getMonth();
+    this.selectedDate = new Date(year, month, day.date);
+  }
+
+  getSelectedDayReservations(): Reservation[] {
+    if (!this.selectedDate) return [];
+    return this.reservations.filter((r) => {
+      const reservationDate = new Date(r.date);
+      return (
+        reservationDate.getDate() === this.selectedDate!.getDate() &&
+        reservationDate.getMonth() === this.selectedDate!.getMonth() &&
+        reservationDate.getFullYear() === this.selectedDate!.getFullYear()
+      );
+    });
+  }
+
+  isDateSelected(day: any): boolean {
+    if (!this.selectedDate || !day.currentMonth) return false;
+    const year = this.currentMonth.getFullYear();
+    const month = this.currentMonth.getMonth();
+    return (
+      day.date === this.selectedDate.getDate() &&
+      month === this.selectedDate.getMonth() &&
+      year === this.selectedDate.getFullYear()
+    );
+  }
+
+  formatTimeSlot(timeSlot: string): string {
+    // Convert "6am" or "6pm" to "6:00 AM - 7:00 AM" format
+    const match = timeSlot.match(/^(\d{1,2})(am|pm)$/i);
+    if (!match) return timeSlot;
+
+    const hour = parseInt(match[1], 10);
+    const meridiem = match[2].toLowerCase();
+
+    // Convert to 24-hour format for calculation
+    let startHour24: number;
+    if (meridiem === 'am') {
+      startHour24 = hour === 12 ? 0 : hour;
+    } else {
+      startHour24 = hour === 12 ? 12 : hour + 12;
+    }
+    let endHour24 = startHour24 + 1;
+
+    // Convert back to 12-hour format for display
+    const startMeridiem = startHour24 < 12 ? 'AM' : 'PM';
+    const endMeridiem = endHour24 < 12 ? 'AM' : 'PM';
+
+    const startDisplay = startHour24 % 12 === 0 ? 12 : startHour24 % 12;
+    const endDisplay = endHour24 % 12 === 0 ? 12 : endHour24 % 12;
+
+    return `${startDisplay}:00 ${startMeridiem} - ${endDisplay}:00 ${endMeridiem}`;
+  }
+
+  isPlayerObject(player: string | ReservationPlayer | any): player is ReservationPlayer {
+    return player && typeof player === 'object' && 'name' in player;
+  }
+
+  getReservationsByCourtForSelectedDay() {
+    const reservations = this.getSelectedDayReservations();
+    const court1 = reservations.filter((r) => r.court === 1);
+    const court2 = reservations.filter((r) => r.court === 2);
+    return { court1, court2 };
   }
 }

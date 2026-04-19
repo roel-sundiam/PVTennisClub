@@ -8,6 +8,7 @@ const ratesRoutes = require("./routes/rates.routes");
 const sessionsRoutes = require("./routes/sessions.routes");
 const analyticsRoutes = require("./routes/analytics.routes");
 const reservationsRoutes = require("./routes/reservations.routes");
+const chargesRoutes = require("./routes/charges.routes");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api/rates", ratesRoutes);
 app.use("/api/sessions", sessionsRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/reservations", reservationsRoutes);
+app.use("/api/charges", chargesRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
