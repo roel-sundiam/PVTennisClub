@@ -108,6 +108,10 @@ import { forkJoin, timeout, of, catchError } from 'rxjs';
             <span class="action-icon">📋</span>
             <span>Session History</span>
           </a>
+          <a routerLink="/admin/tournaments" class="action-card">
+            <span class="action-icon">🏆</span>
+            <span>Tournaments</span>
+          </a>
         </div>
       </div>
     }

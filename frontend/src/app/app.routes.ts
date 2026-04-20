@@ -78,6 +78,20 @@ export const routes: Routes = [
             (m) => m.FinanceComponent,
           ),
       },
+      {
+        path: 'tournaments',
+        loadComponent: () =>
+          import('./features/admin/tournaments/tournaments.component').then(
+            (m) => m.AdminTournamentsComponent,
+          ),
+      },
+      {
+        path: 'tournaments/:id',
+        loadComponent: () =>
+          import('./features/admin/tournaments/tournament-detail.component').then(
+            (m) => m.AdminTournamentDetailComponent,
+          ),
+      },
     ],
   },
   {
@@ -125,6 +139,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/player/payment-approvals/player-payment-approvals.component').then(
             (m) => m.PlayerPaymentApprovalsComponent,
+          ),
+      },
+      {
+        path: 'tournaments',
+        loadComponent: () =>
+          import('./features/player/tournaments/tournaments.component').then(
+            (m) => m.PlayerTournamentsComponent,
+          ),
+      },
+      {
+        path: 'tournaments/:id',
+        loadComponent: () =>
+          import('./features/player/tournaments/tournament-detail.component').then(
+            (m) => m.PlayerTournamentDetailComponent,
           ),
       },
     ],

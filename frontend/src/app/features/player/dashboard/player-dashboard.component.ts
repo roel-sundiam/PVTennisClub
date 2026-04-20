@@ -111,15 +111,28 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
                   </div>
                 </div>
 
-                <!-- Tournaments Card (Coming Soon) -->
-                <div class="action-card tournaments coming-soon">
+                <!-- Tournaments Card -->
+                <div class="action-card tournaments" (click)="navigateTo('/player/tournaments')">
+                  <div class="card-badge tournaments-badge">Live</div>
                   <div class="card-icon-container">
                     <div style="font-size: 2.5rem;">🏆</div>
                   </div>
                   <h4>Tournaments</h4>
                   <p>Compete &amp; win</p>
                   <div class="card-footer">
-                    <span class="card-meta">Stay tuned</span>
+                    <span class="card-meta">View →</span>
+                  </div>
+                </div>
+
+                <div class="action-card rankings" (click)="navigateTo('/player/tournaments?tab=rankings')">
+                  <div class="card-badge rankings-badge">Overall</div>
+                  <div class="card-icon-container">
+                    <div style="font-size: 2.5rem;">🏅</div>
+                  </div>
+                  <h4>Rankings</h4>
+                  <p>Men's &amp; Women's standings</p>
+                  <div class="card-footer">
+                    <span class="card-meta">View leaderboard →</span>
                   </div>
                 </div>
 
@@ -174,6 +187,19 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
                     <p>Approved payments</p>
                     <div class="card-footer">
                       <span class="card-meta">View report →</span>
+                    </div>
+                  </div>
+
+                  <!-- Tournaments Management -->
+                  <div class="action-card admin-tournaments" (click)="navigateTo('/admin/tournaments')">
+                    <div class="card-badge tournaments-admin-badge">Admin</div>
+                    <div class="card-icon-container">
+                      <div style="font-size: 2.5rem;">🏆</div>
+                    </div>
+                    <h4>Tournaments</h4>
+                    <p>Manage tournaments</p>
+                    <div class="card-footer">
+                      <span class="card-meta">Manage →</span>
                     </div>
                   </div>
 
@@ -790,23 +816,29 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
       }
 
-      /* Tournaments Card (Coming Soon) */
+      /* Tournaments Card */
       .action-card.tournaments {
         border: 1px solid rgba(20, 184, 166, 0.3);
-        cursor: default;
-        opacity: 0.75;
+        cursor: pointer;
       }
-      .action-card.tournaments:hover {
-        transform: none;
-        background: rgba(255, 255, 255, 0.75);
-        border-color: rgba(20, 184, 166, 0.4);
-        box-shadow:
-          0 8px 32px rgba(0, 0, 0, 0.08),
-          inset 0 1px 1px rgba(255, 255, 255, 0.6),
-          inset 0 -1px 1px rgba(0, 0, 0, 0.05);
+      .tournaments-badge {
+        background: rgba(20, 184, 166, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
       }
-      .action-card.tournaments:hover::before {
-        opacity: 0;
+      .action-card.rankings {
+        border: 1px solid rgba(217, 119, 6, 0.3);
+        cursor: pointer;
+      }
+      .rankings-badge {
+        background: rgba(217, 119, 6, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+      }
+      .tournaments-admin-badge {
+        background: rgba(245, 158, 11, 0.9);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
       }
 
       .card-icon-container {
@@ -1796,7 +1828,13 @@ export class PlayerDashboardComponent implements OnInit {
   }
 
   navigateTo(route: string) {
-    this.router.navigate([route]);
+    const [path, query] = route.split('?');
+    if (query) {
+      const queryParams = Object.fromEntries(new URLSearchParams(query));
+      this.router.navigate([path], { queryParams });
+    } else {
+      this.router.navigate([path]);
+    }
   }
 
   selectDay(day: any) {
