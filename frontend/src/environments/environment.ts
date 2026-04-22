@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: '/api'
+  apiUrl: '/api',
+  analyticsTrackUrl: 'http://localhost:9999/api/track',
 };

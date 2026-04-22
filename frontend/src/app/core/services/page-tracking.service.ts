@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { LiveVisitorsService } from './live-visitors.service';
+import { AnalyticsTrackService } from './analytics-track.service';
 import { environment } from '../../../environments/environment';
 
 export interface PageVisitRecord {
@@ -23,6 +24,7 @@ export class PageTrackingService {
   private http = inject(HttpClient);
   private auth = inject(AuthService);
   private liveVisitors = inject(LiveVisitorsService);
+  private analyticsTrack = inject(AnalyticsTrackService);
 
   private currentPageStartTime: number | null = null;
   private currentPageName: string | null = null;
@@ -61,6 +63,10 @@ export class PageTrackingService {
         this.currentPageUrl = event.urlAfterRedirects;
         this.currentPageName = this.getPageNameFromUrl(event.urlAfterRedirects);
         this.currentPageStartTime = Date.now();
+
+        // Send page view to analytics dashboard
+        const user = this.auth.getUser();
+        this.analyticsTrack.trackPageView(event.urlAfterRedirects, user?.username);
 
         // Update live visitors for all users (authenticated and anonymous)
         this.updateLiveVisitor(event.urlAfterRedirects, this.currentPageName);

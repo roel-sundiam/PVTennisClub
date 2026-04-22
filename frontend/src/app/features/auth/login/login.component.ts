@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { AnalyticsTrackService } from '../../../core/services/analytics-track.service';
 
 @Component({
   selector: 'app-login',
@@ -204,6 +205,7 @@ export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
+  private analyticsTrack = inject(AnalyticsTrackService);
 
   username = '';
   password = '';
@@ -217,6 +219,7 @@ export class LoginComponent {
 
     this.auth.login(this.username, this.password).subscribe({
       next: (res) => {
+        this.analyticsTrack.trackLogin(this.username);
         this.loading = false;
         this.cdr.detectChanges();
         // All users (admin and player) go to player dashboard first

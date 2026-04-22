@@ -3,6 +3,13 @@
   publish = "frontend/dist/frontend/browser"
   functions = "netlify/functions"
 
+[dev]
+  framework  = "#custom"
+  command    = "cd frontend && ng serve --port 4200"
+  targetPort = 4200
+  port       = 8888
+  publish    = "frontend/dist/frontend/browser"
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["mongoose"]
