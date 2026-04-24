@@ -155,7 +155,7 @@ import { TournamentService, Tournament, TournamentMatch, TournamentPlayer } from
     /* ── Layout ── */
     .page-wrap {
       position: relative; min-height: 100vh; padding: 20px;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
     }
     .court-bg {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -187,16 +187,16 @@ import { TournamentService, Tournament, TournamentMatch, TournamentPlayer } from
     .type-singles { background: #dbeafe; color: #1e40af; }
     .type-doubles { background: #fef3c7; color: #92400e; }
     .status-draft     { background: #f1f5f9; color: #475569; }
-    .status-active    { background: #d1fae5; color: #065f46; }
+    .status-active    { background: #f4ead6; color: #7a5626; }
     .status-completed { background: #ede9fe; color: #5b21b6; }
     .header-stats { display: flex; gap: 8px; flex-wrap: wrap; }
     .stat-pill {
       display: flex; flex-direction: column; align-items: center;
       padding: 6px 14px; background: #f1f5f9; border-radius: 20px; min-width: 48px;
     }
-    .stat-pill-green { background: #d1fae5; }
+    .stat-pill-green { background: #f4ead6; }
     .stat-num { font-size: 1rem; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
-    .stat-pill-green .stat-num { color: #065f46; }
+    .stat-pill-green .stat-num { color: #7a5626; }
     .stat-lbl { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 0.4px; }
 
     /* ── Champion banner ── */
@@ -222,10 +222,10 @@ import { TournamentService, Tournament, TournamentMatch, TournamentPlayer } from
       border-bottom: 3px solid transparent; margin-bottom: -2px;
       transition: all 0.15s; display: flex; align-items: center; gap: 7px;
     }
-    .tab-btn:hover { color: #2d6a1f; }
-    .tab-btn.active { color: #2d6a1f; border-bottom-color: #2d6a1f; }
+    .tab-btn:hover { color: #9f7338; }
+    .tab-btn.active { color: #9f7338; border-bottom-color: #9f7338; }
     .tab-badge {
-      background: #d1fae5; color: #065f46; font-size: 0.7rem; font-weight: 700;
+      background: #f4ead6; color: #7a5626; font-size: 0.7rem; font-weight: 700;
       padding: 2px 7px; border-radius: 10px;
     }
 
@@ -258,7 +258,7 @@ import { TournamentService, Tournament, TournamentMatch, TournamentPlayer } from
     }
     .chip-upcoming  { background: #f1f5f9; color: #475569; }
     .chip-ongoing   { background: #fef3c7; color: #92400e; }
-    .chip-completed { background: #d1fae5; color: #065f46; }
+    .chip-completed { background: #f4ead6; color: #7a5626; }
     .match-date { font-size: 0.75rem; color: #64748b; margin-left: auto; display: flex; align-items: center; gap: 5px; }
     .match-date i { color: #94a3b8; }
 
@@ -272,8 +272,8 @@ import { TournamentService, Tournament, TournamentMatch, TournamentPlayer } from
     .match-player:last-child { justify-content: flex-end; text-align: right; flex-direction: row-reverse; }
     .player-icon { font-size: 1.3rem; color: #cbd5e1; flex-shrink: 0; }
     .player-name { font-weight: 600; color: #1a1a1a; }
-    .player-winner .player-name { color: #2d6a1f; font-weight: 700; }
-    .player-winner .player-icon { color: #2d6a1f; }
+    .player-winner .player-name { color: #9f7338; font-weight: 700; }
+    .player-winner .player-icon { color: #9f7338; }
     .player-loser { opacity: 0.4; }
     .win-tag { font-size: 1rem; flex-shrink: 0; }
 
@@ -295,7 +295,7 @@ import { TournamentService, Tournament, TournamentMatch, TournamentPlayer } from
     .player-row:last-child { border-bottom: none; }
     .p-avatar {
       width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
-      background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+      background: linear-gradient(135deg, #9f7338, #c9a15d);
       color: white; font-size: 0.7rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
     }
@@ -390,3 +390,5 @@ export class PlayerTournamentDetailComponent implements OnInit {
     return (final.winner === 1 ? final.slot2Players : final.slot1Players).some(p => p._id === pid);
   }
 }
+
+

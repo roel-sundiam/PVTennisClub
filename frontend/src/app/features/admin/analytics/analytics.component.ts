@@ -244,7 +244,7 @@ import { forkJoin, timeout } from 'rxjs';
         border-left-color: #8b5cf6;
       }
       .stat-sessions {
-        border-left-color: #10b981;
+        border-left-color: #b88942;
       }
       .stat-revenue {
         border-left-color: #f59e0b;
@@ -392,7 +392,7 @@ import { forkJoin, timeout } from 'rxjs';
       }
 
       .role-player {
-        background: rgba(16, 185, 129, 0.1);
+        background: rgba(184, 137, 66, 0.1);
         color: #059669;
       }
 
@@ -429,10 +429,10 @@ import { forkJoin, timeout } from 'rxjs';
         gap: 1rem;
       }
       .page-card {
-        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        background: linear-gradient(135deg, #f8f1e4 0%, #f2e4c9 100%);
         border-radius: 10px;
         padding: 1.25rem;
-        border: 1px solid rgba(34, 197, 94, 0.2);
+        border: 1px solid rgba(201, 161, 93, 0.2);
       }
       .page-name {
         font-weight: 600;
@@ -630,3 +630,5 @@ export class AnalyticsComponent implements OnInit {
     }
   }
 }
+
+

@@ -5,7 +5,7 @@ const Reservation = require("../models/Reservation");
 const Charge = require("../models/Charge");
 const Rates = require("../models/Rates");
 
-const PEAK_SLOTS = new Set(["5am", "6pm", "7pm", "8pm", "9pm"]);
+const WEEKEND_DAYS = new Set([0, 5, 6]); // Sunday=0, Friday=5, Saturday=6
 
 const router = express.Router();
 
@@ -110,7 +110,12 @@ router.get("/", auth, admin, async (req, res) => {
 // POST /api/reservations — book a slot (player)
 router.post("/", auth, async (req, res) => {
   try {
-    const { court, date, timeSlot, players = [] } = req.body;
+    const {
+      court, date, timeSlot, players = [],
+      lightsRequested = false, ballBoy = false, isHoliday = false,
+      guestCount = 0,
+      rentals = {},
+    } = req.body;
     if (!court || !date || !timeSlot) {
       return res.status(400).json({ error: "court, date, and timeSlot are required" });
     }
@@ -136,10 +141,48 @@ router.post("/", auth, async (req, res) => {
 
     // Fetch current rates and compute court fee server-side
     const rawRates = await Rates.collection.findOne({ _id: "court_rates" });
-    const peakRate = Number(rawRates?.reservationPeakRate ?? 0);
-    const nonPeakRate = Number(rawRates?.reservationNonPeakRate ?? 0);
-    const isPeak = PEAK_SLOTS.has(timeSlot);
-    const courtFee = isPeak ? peakRate : nonPeakRate;
+    const ratesUsed = {
+      weekdayRate: Number(rawRates?.reservationWeekdayRate ?? 0),
+      weekendRate: Number(rawRates?.reservationWeekendRate ?? 0),
+      holidayRate: Number(rawRates?.reservationHolidayRate ?? 0),
+      lightsRate: Number(rawRates?.lightRate ?? 0),
+      ballBoyRate: Number(rawRates?.ballBoyRate ?? 0),
+      guestFee: Number(rawRates?.reservationGuestFee ?? 0),
+      rentalBalls50Rate: Number(rawRates?.rentalBalls50Rate ?? 0),
+      rentalBalls100Rate: Number(rawRates?.rentalBalls100Rate ?? 0),
+      rentalBallMachineRate: Number(rawRates?.rentalBallMachineRate ?? 0),
+      rentalRacketRate: Number(rawRates?.rentalRacketRate ?? 0),
+    };
+
+    const sanitizedRentals = {
+      balls50: Math.max(0, Math.floor(Number(rentals.balls50) || 0)),
+      balls100: Math.max(0, Math.floor(Number(rentals.balls100) || 0)),
+      ballMachine: Boolean(rentals.ballMachine),
+      rackets: Math.max(0, Math.floor(Number(rentals.rackets) || 0)),
+    };
+    const rentalFee =
+      sanitizedRentals.balls50 * ratesUsed.rentalBalls50Rate +
+      sanitizedRentals.balls100 * ratesUsed.rentalBalls100Rate +
+      (sanitizedRentals.ballMachine ? ratesUsed.rentalBallMachineRate : 0) +
+      sanitizedRentals.rackets * ratesUsed.rentalRacketRate;
+
+    const dayOfWeek = parsedDate.getUTCDay(); // 0=Sun,1=Mon,...,6=Sat
+    const isWeekend = WEEKEND_DAYS.has(dayOfWeek);
+
+    let baseCourtFee;
+    if (isHoliday) {
+      baseCourtFee = ratesUsed.holidayRate;
+    } else if (isWeekend) {
+      baseCourtFee = ratesUsed.weekendRate;
+    } else {
+      baseCourtFee = ratesUsed.weekdayRate;
+    }
+
+    const sanitizedGuestCount = Math.max(0, Math.floor(Number(guestCount) || 0));
+    const lightsFee = lightsRequested ? ratesUsed.lightsRate : 0;
+    const ballBoyFee = ballBoy ? ratesUsed.ballBoyRate : 0;
+    const guestTotalFee = sanitizedGuestCount * ratesUsed.guestFee;
+    const courtFee = baseCourtFee + lightsFee + ballBoyFee + guestTotalFee + rentalFee;
 
     const reservation = await Reservation.create({
       court: courtNum,
@@ -147,8 +190,13 @@ router.post("/", auth, async (req, res) => {
       timeSlot,
       player: req.user.userId,
       players: additionalPlayers,
+      lightsRequested: Boolean(lightsRequested),
+      isHoliday: Boolean(isHoliday),
+      ballBoy: Boolean(ballBoy),
+      guestCount: sanitizedGuestCount,
+      rentals: sanitizedRentals,
       courtFee,
-      ratesUsed: { peakRate, nonPeakRate },
+      ratesUsed,
     });
 
     // Automatically create a charge for this reservation
@@ -157,9 +205,11 @@ router.post("/", auth, async (req, res) => {
       reservationId: reservation._id,
       amount: courtFee,
       breakdown: {
-        withoutLightFee: courtFee,
-        lightFee: 0,
-        ballBoyFee: 0,
+        withoutLightFee: baseCourtFee,
+        lightFee: lightsFee,
+        ballBoyFee,
+        guestFee: guestTotalFee,
+        rentalFee,
       },
       chargeType: "reservation",
     });

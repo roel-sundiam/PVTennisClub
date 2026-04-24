@@ -18,7 +18,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
       <div class="auth-card">
         <div class="auth-header">
           <div class="header-banner">
-            <h1>Punta Verde Tennis Club</h1>
+            <h1>Tenisu Tennis Club</h1>
           </div>
           <p class="header-sub">Create a Player Account</p>
         </div>
@@ -239,7 +239,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         margin-bottom: 0;
       }
       .header-banner {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         padding: 2rem 2rem 1.5rem;
         display: flex;
         flex-direction: column;
@@ -254,14 +254,14 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       }
       .header-sub {
-        color: #3a7d2c;
+        color: #b88942;
         font-size: 0.9rem;
         font-weight: 600;
         font-style: italic;
         margin: 0.85rem 0 0 0;
         padding: 0.4rem 1.25rem;
-        background: #f0faf0;
-        border-top: 3px solid #4a8a2a;
+        background: #f8f1e4;
+        border-top: 3px solid #c9a15d;
         width: 100%;
         box-sizing: border-box;
       }
@@ -313,7 +313,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         letter-spacing: 0;
       }
       .gender-option input[type='radio'] {
-        accent-color: #3a7d2c;
+        accent-color: #b88942;
         width: 1rem;
         height: 1rem;
         cursor: pointer;
@@ -330,7 +330,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         cursor: pointer;
       }
       .image-placeholder {
-        border: 2px dashed #4a8a2a;
+        border: 2px dashed #c9a15d;
         border-radius: 10px;
         padding: 2rem;
         text-align: center;
@@ -338,8 +338,8 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         transition: all 0.3s;
       }
       .image-input-label:hover .image-placeholder {
-        background: #f0faf0;
-        border-color: #2d6a1f;
+        background: #f8f1e4;
+        border-color: #9f7338;
       }
       .image-placeholder span {
         font-size: 2.5rem;
@@ -367,7 +367,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         height: 120px;
         border-radius: 10px;
         object-fit: cover;
-        border: 3px solid #4a8a2a;
+        border: 3px solid #c9a15d;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
       .btn-remove-image {
@@ -402,8 +402,8 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
       }
       input:focus {
         outline: none;
-        border-color: #4a8a2a !important;
-        box-shadow: 0 0 0 3px rgba(74, 138, 42, 0.15) !important;
+        border-color: #c9a15d !important;
+        box-shadow: 0 0 0 3px rgba(201, 161, 93, 0.15) !important;
       }
       .btn-primary {
         margin-top: 0.75rem;
@@ -411,14 +411,14 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        background: #3a7d2c;
-        border-color: #3a7d2c;
-        box-shadow: 0 4px 12px rgba(58, 125, 44, 0.35);
+        background: #b88942;
+        border-color: #b88942;
+        box-shadow: 0 4px 12px rgba(184, 137, 66, 0.35);
       }
       .btn-primary:hover:not(:disabled) {
-        background: #2d6a1f;
-        border-color: #2d6a1f;
-        box-shadow: 0 6px 16px rgba(58, 125, 44, 0.45);
+        background: #9f7338;
+        border-color: #9f7338;
+        box-shadow: 0 6px 16px rgba(184, 137, 66, 0.45);
       }
       .btn-primary:disabled {
         background: #9ca3af;
@@ -434,20 +434,20 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         color: #6b7280;
       }
       .auth-footer a {
-        color: #3a7d2c;
+        color: #b88942;
         font-weight: 600;
         text-decoration: none;
       }
       .auth-footer a:hover {
-        color: #2d6a1f;
+        color: #9f7338;
       }
       .alert-success {
         margin: 1.5rem 2rem 0;
         padding: 1rem;
-        background: #f0faf0;
-        border: 1px solid #4a8a2a;
+        background: #f8f1e4;
+        border: 1px solid #c9a15d;
         border-radius: 8px;
-        color: #2d6a1f;
+        color: #9f7338;
         font-size: 0.9rem;
       }
       @media (max-width: 600px) {
@@ -577,3 +577,4 @@ export class RegisterComponent {
       });
   }
 }
+

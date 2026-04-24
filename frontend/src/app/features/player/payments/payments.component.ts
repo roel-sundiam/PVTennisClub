@@ -326,7 +326,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
       position: relative;
       min-height: 100vh;
       padding: 20px;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
     }
 
     .court-bg {
@@ -442,16 +442,16 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     }
 
     .tab-btn.active {
-      color: #3db869;
-      border-bottom-color: #3db869;
+      color: #b88942;
+      border-bottom-color: #b88942;
     }
 
     .tab-btn:hover {
-      color: #3db869;
+      color: #b88942;
     }
 
     .tab-badge {
-      background: #3db869;
+      background: #b88942;
       color: white;
       font-size: 11px;
       padding: 2px 6px;
@@ -531,8 +531,8 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     }
 
     .charge-card:hover {
-      border-color: #3db869;
-      box-shadow: 0 2px 8px rgba(61, 184, 105, 0.1);
+      border-color: #b88942;
+      box-shadow: 0 2px 8px rgba(184, 137, 66, 0.1);
     }
 
     .charge-card.paid {
@@ -632,11 +632,11 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     .amount-value {
       font-size: 20px;
       font-weight: bold;
-      color: #3db869;
+      color: #b88942;
     }
 
     .pay-btn {
-      background: #3db869;
+      background: #b88942;
       color: white;
       border: none;
       padding: 8px 16px;
@@ -648,7 +648,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     }
 
     .pay-btn:hover:not(:disabled) {
-      background: #2d9052;
+      background: #9f7338;
     }
 
     .pay-btn:disabled {
@@ -720,7 +720,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
       align-items: center;
       padding: 20px;
       border-bottom: 1px solid #eee;
-      background: linear-gradient(135deg, rgba(61, 184, 105, 0.05), rgba(45, 106, 31, 0.05));
+      background: linear-gradient(135deg, rgba(184, 137, 66, 0.05), rgba(159, 115, 56, 0.05));
     }
 
     .modal-header h3 {
@@ -795,7 +795,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
 
     .success-message h4 {
       margin: 0 0 8px 0;
-      color: #2d6a1f;
+      color: #9f7338;
       font-size: 18px;
       font-weight: 700;
     }
@@ -808,8 +808,8 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     }
 
     .charge-details-box {
-      background: linear-gradient(135deg, rgba(61, 184, 105, 0.08), rgba(45, 106, 31, 0.08));
-      border-left: 4px solid #3db869;
+      background: linear-gradient(135deg, rgba(184, 137, 66, 0.08), rgba(159, 115, 56, 0.08));
+      border-left: 4px solid #b88942;
       border-radius: 8px;
       padding: 16px;
       margin-bottom: 20px;
@@ -845,8 +845,8 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     }
 
     .amount-box {
-      background: linear-gradient(135deg, rgba(61, 184, 105, 0.1), rgba(45, 106, 31, 0.1));
-      border: 2px dashed #3db869;
+      background: linear-gradient(135deg, rgba(184, 137, 66, 0.1), rgba(159, 115, 56, 0.1));
+      border: 2px dashed #b88942;
       border-radius: 12px;
       padding: 24px;
       margin-bottom: 24px;
@@ -865,7 +865,7 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     .amount-display {
       font-size: 36px;
       font-weight: 700;
-      color: #2d6a1f;
+      color: #9f7338;
       letter-spacing: -1px;
     }
 
@@ -907,19 +907,19 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     }
 
     .radio-label:hover {
-      border-color: #3db869;
+      border-color: #b88942;
       background: #f9fef8;
     }
 
     .radio-label.selected {
-      border-color: #3db869;
-      background: linear-gradient(135deg, rgba(61, 184, 105, 0.06), rgba(45, 106, 31, 0.06));
-      box-shadow: inset 0 0 0 1px rgba(61, 184, 105, 0.1);
+      border-color: #b88942;
+      background: linear-gradient(135deg, rgba(184, 137, 66, 0.06), rgba(159, 115, 56, 0.06));
+      box-shadow: inset 0 0 0 1px rgba(184, 137, 66, 0.1);
     }
 
     .radio-label input[type="radio"] {
       cursor: pointer;
-      accent-color: #3db869;
+      accent-color: #b88942;
       width: 20px;
       height: 20px;
       flex-shrink: 0;
@@ -987,14 +987,14 @@ type FilterTab = 'all' | 'unpaid' | 'paid';
     }
 
     .btn-submit {
-      background: linear-gradient(135deg, #3db869 0%, #2d9052 100%);
+      background: linear-gradient(135deg, #b88942 0%, #9f7338 100%);
       color: white;
     }
 
     .btn-submit:hover:not(:disabled) {
-      background: linear-gradient(135deg, #2d9052 0%, #1f6939 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #1f6939 100%);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(61, 184, 105, 0.3);
+      box-shadow: 0 4px 12px rgba(184, 137, 66, 0.3);
     }
 
     .btn-submit:disabled {
@@ -1206,3 +1206,4 @@ export class PlayerPaymentsComponent implements OnInit {
     this.router.navigate(['/player/dashboard']);
   }
 }
+

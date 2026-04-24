@@ -9,8 +9,14 @@ export interface Rates {
   training2WithoutLightRate: number;
   training2LightRate: number;
   ballBoyRate: number;
-  reservationPeakRate: number;
-  reservationNonPeakRate: number;
+  reservationWeekdayRate: number;
+  reservationWeekendRate: number;
+  reservationHolidayRate: number;
+  reservationGuestFee: number;
+  rentalBalls50Rate: number;
+  rentalBalls100Rate: number;
+  rentalBallMachineRate: number;
+  rentalRacketRate: number;
   updatedAt: string;
 }
 
@@ -28,8 +34,14 @@ export class RatesService {
     training2WithoutLightRate: number;
     training2LightRate: number;
     ballBoyRate: number;
-    reservationPeakRate: number;
-    reservationNonPeakRate: number;
+    reservationWeekdayRate: number;
+    reservationWeekendRate: number;
+    reservationHolidayRate: number;
+    reservationGuestFee: number;
+    rentalBalls50Rate: number;
+    rentalBalls100Rate: number;
+    rentalBallMachineRate: number;
+    rentalRacketRate: number;
   }) {
     return this.http.put<Rates>(`${environment.apiUrl}/rates`, data);
   }

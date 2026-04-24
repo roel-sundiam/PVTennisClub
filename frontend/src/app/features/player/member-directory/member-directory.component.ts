@@ -135,7 +135,7 @@ interface Member {
         margin: 0 auto;
       }
       .directory-header {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         padding: 2rem;
         text-align: center;
         color: white;
@@ -170,8 +170,8 @@ interface Member {
       }
       .search-input:focus {
         outline: none;
-        border-color: #2d6a1f;
-        box-shadow: 0 0 0 3px rgba(45, 106, 31, 0.1);
+        border-color: #9f7338;
+        box-shadow: 0 0 0 3px rgba(159, 115, 56, 0.1);
       }
       .search-icon {
         position: absolute;
@@ -214,14 +214,14 @@ interface Member {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       }
       .member-card:hover {
-        border-color: #2d6a1f;
-        box-shadow: 0 8px 20px rgba(45, 106, 31, 0.15);
+        border-color: #9f7338;
+        box-shadow: 0 8px 20px rgba(159, 115, 56, 0.15);
         transform: translateY(-4px);
       }
       .member-avatar {
         width: 60px;
         height: 60px;
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         color: white;
         border-radius: 50%;
         display: flex;
@@ -231,7 +231,7 @@ interface Member {
         font-weight: 700;
         margin-bottom: 1rem;
         overflow: hidden;
-        border: 3px solid #f0faf0;
+        border: 3px solid #f8f1e4;
       }
       .profile-image {
         width: 100%;
@@ -266,7 +266,7 @@ interface Member {
         font-style: italic;
       }
       .btn-connect {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         color: white;
         border: none;
         padding: 0.5rem 1rem;
@@ -279,7 +279,7 @@ interface Member {
       }
       .btn-connect:hover {
         transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.3);
+        box-shadow: 0 4px 12px rgba(159, 115, 56, 0.3);
       }
       .members-count {
         text-align: center;
@@ -290,9 +290,9 @@ interface Member {
       .btn-back {
         display: block;
         margin: 2rem auto;
-        background: rgba(45, 106, 31, 0.1);
-        color: #2d6a1f;
-        border: 2px solid #2d6a1f;
+        background: rgba(159, 115, 56, 0.1);
+        color: #9f7338;
+        border: 2px solid #9f7338;
         padding: 0.7rem 1.5rem;
         border-radius: 8px;
         font-weight: 600;
@@ -301,7 +301,7 @@ interface Member {
         font-size: 0.95rem;
       }
       .btn-back:hover {
-        background: #2d6a1f;
+        background: #9f7338;
         color: white;
       }
 
@@ -429,3 +429,4 @@ export class MemberDirectoryComponent implements OnInit {
     this.router.navigate(['/player/dashboard']);
   }
 }
+

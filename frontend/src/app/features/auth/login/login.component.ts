@@ -17,7 +17,7 @@ import { AnalyticsTrackService } from '../../../core/services/analytics-track.se
       <div class="auth-card">
         <div class="auth-header">
           <div class="header-banner">
-            <h1>Punta Verde Tennis Club</h1>
+            <h1>Tenisu Tennis Club</h1>
           </div>
           <p class="header-sub">Member Login Access</p>
         </div>
@@ -103,7 +103,7 @@ import { AnalyticsTrackService } from '../../../core/services/analytics-track.se
         margin-bottom: 0;
       }
       .header-banner {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         padding: 2rem 2rem 1.5rem;
         display: flex;
         flex-direction: column;
@@ -119,14 +119,14 @@ import { AnalyticsTrackService } from '../../../core/services/analytics-track.se
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       }
       .header-sub {
-        color: #3a7d2c;
+        color: #b88942;
         font-size: 0.9rem;
         font-weight: 600;
         font-style: italic;
         margin: 0.85rem 0 0 0;
         padding: 0.4rem 1.25rem;
-        background: #f0faf0;
-        border-top: 3px solid #4a8a2a;
+        background: #f8f1e4;
+        border-top: 3px solid #c9a15d;
         width: 100%;
         box-sizing: border-box;
       }
@@ -148,8 +148,8 @@ import { AnalyticsTrackService } from '../../../core/services/analytics-track.se
       }
       input:focus {
         outline: none;
-        border-color: #4a8a2a !important;
-        box-shadow: 0 0 0 3px rgba(74, 138, 42, 0.15) !important;
+        border-color: #c9a15d !important;
+        box-shadow: 0 0 0 3px rgba(201, 161, 93, 0.15) !important;
       }
       .btn-primary {
         margin-top: 0.75rem;
@@ -157,14 +157,14 @@ import { AnalyticsTrackService } from '../../../core/services/analytics-track.se
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        background: #3a7d2c;
-        border-color: #3a7d2c;
-        box-shadow: 0 4px 12px rgba(58, 125, 44, 0.35);
+        background: #b88942;
+        border-color: #b88942;
+        box-shadow: 0 4px 12px rgba(184, 137, 66, 0.35);
       }
       .btn-primary:hover:not(:disabled) {
-        background: #2d6a1f;
-        border-color: #2d6a1f;
-        box-shadow: 0 6px 16px rgba(58, 125, 44, 0.45);
+        background: #9f7338;
+        border-color: #9f7338;
+        box-shadow: 0 6px 16px rgba(184, 137, 66, 0.45);
       }
       .auth-footer {
         text-align: center;
@@ -173,13 +173,13 @@ import { AnalyticsTrackService } from '../../../core/services/analytics-track.se
         color: #6b7280;
       }
       .auth-footer a {
-        color: #3a7d2c;
+        color: #b88942;
         font-weight: 600;
         text-decoration: none;
         transition: color 0.2s;
       }
       .auth-footer a:hover {
-        color: #2d6a1f;
+        color: #9f7338;
       }
       @media (max-width: 600px) {
         .header-banner {
@@ -233,3 +233,4 @@ export class LoginComponent {
     });
   }
 }
+

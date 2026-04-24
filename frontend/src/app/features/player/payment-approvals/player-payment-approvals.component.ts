@@ -140,7 +140,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styles: [`
     .page-wrap {
       position: relative; min-height: 100vh; padding: 20px;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
     }
     .court-bg {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -181,15 +181,15 @@ import { AuthService } from '../../../core/services/auth.service';
     .charge-icon { font-size: 1.5rem; flex-shrink: 0; padding-top: 2px; }
     .charge-info { flex: 1; min-width: 0; }
     .charge-title { font-weight: 700; font-size: 0.95rem; color: #1a1a1a; }
-    .player-name { font-size: 0.82rem; color: #2d6a1f; font-weight: 600; margin-top: 2px; }
-    .reserver-name { font-size: 0.82rem; color: #2d6a1f; font-weight: 600; margin-top: 2px; }
+    .player-name { font-size: 0.82rem; color: #9f7338; font-weight: 600; margin-top: 2px; }
+    .reserver-name { font-size: 0.82rem; color: #9f7338; font-weight: 600; margin-top: 2px; }
     .charge-meta { font-size: 0.8rem; color: #666; margin-top: 3px; }
     .admin-note { font-size: 0.8rem; color: #dc3545; font-style: italic; margin-top: 4px; }
     .charge-right {
       display: flex; flex-direction: column; align-items: flex-end;
       gap: 6px; flex-shrink: 0; padding-top: 2px;
     }
-    .charge-amount { font-size: 1.1rem; font-weight: 700; color: #2d6a1f; }
+    .charge-amount { font-size: 1.1rem; font-weight: 700; color: #9f7338; }
     .status-badge {
       font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;
     }
@@ -341,3 +341,4 @@ export class PlayerPaymentApprovalsComponent implements OnInit {
     this.router.navigate(['/payments']);
   }
 }
+

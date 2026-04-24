@@ -92,10 +92,6 @@ import { forkJoin, timeout, of, catchError } from 'rxjs';
       <div class="quick-actions">
         <h3>Quick Actions</h3>
         <div class="action-grid">
-          <a routerLink="/admin/sessions/new" class="action-card">
-            <span class="action-icon">➕</span>
-            <span>Record Session</span>
-          </a>
           <a routerLink="/admin/users" class="action-card">
             <span class="action-icon">👥</span>
             <span>Manage Users</span>
@@ -103,10 +99,6 @@ import { forkJoin, timeout, of, catchError } from 'rxjs';
           <a routerLink="/admin/rates" class="action-card">
             <span class="action-icon">💰</span>
             <span>Update Rates</span>
-          </a>
-          <a routerLink="/admin/sessions" class="action-card">
-            <span class="action-icon">📋</span>
-            <span>Session History</span>
           </a>
           <a routerLink="/admin/tournaments" class="action-card">
             <span class="action-icon">🏆</span>
@@ -254,9 +246,9 @@ import { forkJoin, timeout, of, catchError } from 'rxjs';
       .btn-review-sm:hover { background: var(--primary); color: white; }
       .approvals-empty {
         padding: 0.75rem 1rem;
-        background: #f0fdf4;
+        background: #f8f1e4;
         border-radius: 8px;
-        color: #166534;
+        color: #7a5626;
         font-size: 0.875rem;
       }
       .approvals-overflow {
@@ -388,3 +380,4 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 }
+

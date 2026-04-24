@@ -134,10 +134,10 @@ import { ReservationService, Reservation } from '../../../core/services/reservat
     .table-wrap { overflow-x: auto; }
     .res-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
     .res-table th {
-      background: #f0faf0; color: var(--primary);
+      background: #f8f1e4; color: var(--primary);
       text-align: left; padding: .75rem 1rem;
       font-size: .8rem; text-transform: uppercase; letter-spacing: .5px;
-      border-bottom: 2px solid #bbf7d0;
+      border-bottom: 2px solid #e6d2ad;
     }
     .res-table td { padding: .75rem 1rem; border-bottom: 1px solid #f3f4f6; }
     .res-table tr:hover td { background: #fafff8; }
@@ -152,7 +152,7 @@ import { ReservationService, Reservation } from '../../../core/services/reservat
       padding: .2rem .65rem; border-radius: 10px;
       font-size: .78rem; font-weight: 700; text-transform: capitalize;
     }
-    .status-confirmed { background: #d1fae5; color: #065f46; }
+    .status-confirmed { background: #f4ead6; color: #7a5626; }
     .status-cancelled { background: #f3f4f6; color: #6b7280; }
 
     .actions { display: flex; gap: .5rem; }
@@ -252,3 +252,5 @@ export class AdminReservationsComponent implements OnInit {
     });
   }
 }
+
+

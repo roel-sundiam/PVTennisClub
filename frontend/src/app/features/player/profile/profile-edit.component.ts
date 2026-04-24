@@ -230,7 +230,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         align-items: center;
         margin-bottom: 2rem;
         padding-bottom: 1rem;
-        border-bottom: 2px solid #f0faf0;
+        border-bottom: 2px solid #f8f1e4;
       }
       .profile-header h1 {
         font-size: 1.75rem;
@@ -260,7 +260,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         justify-content: center;
         gap: 1rem;
         padding: 3rem;
-        color: #3a7d2c;
+        color: #b88942;
         font-size: 1.1rem;
         font-weight: 600;
       }
@@ -293,7 +293,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         height: 120px;
         border-radius: 50%;
         object-fit: cover;
-        border: 4px solid #4a8a2a;
+        border: 4px solid #c9a15d;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
       .avatar-placeholder {
@@ -303,7 +303,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         gap: 1rem;
         padding: 2rem;
         background: #f9faf9;
-        border: 2px dashed #4a8a2a;
+        border: 2px dashed #c9a15d;
         border-radius: 12px;
         width: 150px;
         height: 150px;
@@ -314,11 +314,11 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
       .avatar-placeholder span {
         font-size: 3rem;
         font-weight: 700;
-        color: #3a7d2c;
+        color: #b88942;
       }
       .btn-change-image,
       .btn-upload-image {
-        background: #3a7d2c;
+        background: #b88942;
         color: white;
         border: none;
         padding: 0.5rem 1rem;
@@ -333,7 +333,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
       }
       .btn-change-image:hover,
       .btn-upload-image:hover {
-        background: #2d6a1f;
+        background: #9f7338;
       }
       .image-input-hidden {
         display: none;
@@ -360,8 +360,8 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
       }
       .form-group input:focus {
         outline: none;
-        border-color: #4a8a2a;
-        box-shadow: 0 0 0 3px rgba(74, 138, 42, 0.15);
+        border-color: #c9a15d;
+        box-shadow: 0 0 0 3px rgba(201, 161, 93, 0.15);
       }
       .form-group input:disabled {
         background: #f3f4f6;
@@ -391,7 +391,7 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         font-weight: 500;
       }
       .gender-option input[type='radio'] {
-        accent-color: #3a7d2c;
+        accent-color: #b88942;
         width: 1rem;
         height: 1rem;
         cursor: pointer;
@@ -420,10 +420,10 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
       }
       .alert-success {
         padding: 1rem;
-        background: #f0faf0;
-        border: 1px solid #4a8a2a;
+        background: #f8f1e4;
+        border: 1px solid #c9a15d;
         border-radius: 8px;
-        color: #2d6a1f;
+        color: #9f7338;
         font-size: 0.9rem;
         margin-bottom: 1rem;
       }
@@ -451,11 +451,11 @@ import { CloudinaryService } from '../../../core/services/cloudinary.service';
         background: #d1d5db;
       }
       .btn-save {
-        background: #3a7d2c;
+        background: #b88942;
         color: white;
       }
       .btn-save:hover:not(:disabled) {
-        background: #2d6a1f;
+        background: #9f7338;
       }
       .btn-save:disabled {
         background: #9ca3af;
@@ -684,3 +684,4 @@ export class ProfileEditComponent implements OnInit {
     this.router.navigate(['/player/dashboard']);
   }
 }
+

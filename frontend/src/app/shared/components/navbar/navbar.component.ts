@@ -11,7 +11,7 @@ import { AuthService } from '../../../core/services/auth.service';
     <nav class="navbar">
       <button type="button" class="nav-brand" (click)="goToDashboard()" title="Go to dashboard">
         <i class="fas fa-border-all brand-icon"></i>
-        <span class="brand-name">Punta Verde Tennis Club</span>
+        <span class="brand-name">Tenisu Tennis Club</span>
       </button>
 
       @if (auth.isLoggedIn()) {
@@ -103,7 +103,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styles: [
     `
       .navbar {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         color: white;
         padding: 0 1.5rem;
         height: 60px;
@@ -351,7 +351,7 @@ import { AuthService } from '../../../core/services/auth.service';
         position: absolute;
         top: 60px;
         right: 0;
-        background: #2d6a1f;
+        background: #9f7338;
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 8px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
@@ -448,3 +448,4 @@ export class NavbarComponent {
     this.mobileMenuOpen = false;
   }
 }
+

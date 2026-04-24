@@ -156,7 +156,7 @@ import { UsersService, User } from '../../../core/services/users.service';
   styles: [`
     .page-wrap {
       position: relative; min-height: 100vh; padding: 20px;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
     }
     .court-bg {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -172,7 +172,7 @@ import { UsersService, User } from '../../../core/services/users.service';
     .card-header {
       display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
       padding: 18px 24px; border-bottom: 1px solid #eee;
-      background: linear-gradient(135deg, #2d6a1f 0%, #3d7a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #3d7a2a 100%);
     }
     .back-btn {
       background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
@@ -189,7 +189,7 @@ import { UsersService, User } from '../../../core/services/users.service';
       padding: 6px 14px; min-width: 56px;
     }
     .stat-pill-amber { background: rgba(245,158,11,0.35); }
-    .stat-pill-green { background: rgba(34,197,94,0.25); }
+    .stat-pill-green { background: rgba(201,161,93,0.25); }
     .stat-num { font-size: 1.1rem; font-weight: 800; color: #fff; line-height: 1; }
     .stat-lbl { font-size: 0.65rem; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px; }
 
@@ -201,8 +201,8 @@ import { UsersService, User } from '../../../core/services/users.service';
       gap: 7px; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.15s;
     }
     .tab-btn i { font-size: 0.85rem; }
-    .tab-btn:hover { color: #2d6a1f; }
-    .tab-btn.active { color: #2d6a1f; border-bottom-color: #2d6a1f; }
+    .tab-btn:hover { color: #9f7338; }
+    .tab-btn.active { color: #9f7338; border-bottom-color: #9f7338; }
     .tab-badge {
       background: #f59e0b; color: #fff; font-size: 0.7rem; font-weight: 700;
       padding: 2px 7px; border-radius: 10px;
@@ -213,8 +213,8 @@ import { UsersService, User } from '../../../core/services/users.service';
 
     /* Empty state */
     .empty-state { text-align: center; padding: 56px 20px; }
-    .empty-icon { font-size: 3rem; color: #d1fae5; margin-bottom: 12px; }
-    .empty-icon i { color: #6ee7b7; }
+    .empty-icon { font-size: 3rem; color: #f4ead6; margin-bottom: 12px; }
+    .empty-icon i { color: #e6d2ad; }
     .empty-title { font-size: 1.1rem; font-weight: 700; color: #1a1a1a; margin: 0 0 4px; }
     .empty-sub { font-size: 0.875rem; color: #999; margin: 0; }
 
@@ -229,13 +229,13 @@ import { UsersService, User } from '../../../core/services/users.service';
     .pending-card { border-left: 4px solid #f59e0b; background: #fffbeb; }
     .member-avatar {
       width: 48px; height: 48px; border-radius: 50%;
-      background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+      background: linear-gradient(135deg, #9f7338, #c9a15d);
       color: white; font-size: 1rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .member-info { flex: 1; min-width: 0; }
     .member-name { font-size: 0.95rem; font-weight: 700; color: #1a1a1a; }
-    .member-email { font-size: 0.8rem; color: #2d6a1f; margin-top: 3px; display: flex; align-items: center; gap: 5px; }
+    .member-email { font-size: 0.8rem; color: #9f7338; margin-top: 3px; display: flex; align-items: center; gap: 5px; }
     .member-meta { font-size: 0.78rem; color: #666; margin-top: 3px; display: flex; align-items: center; gap: 5px; }
     .member-actions { display: flex; gap: 8px; flex-shrink: 0; }
     .action-btn {
@@ -243,7 +243,7 @@ import { UsersService, User } from '../../../core/services/users.service';
       border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 600;
       cursor: pointer; transition: all 0.15s;
     }
-    .btn-approve { background: #2d6a1f; color: white; }
+    .btn-approve { background: #9f7338; color: white; }
     .btn-approve:hover:not(:disabled) { background: #245516; }
     .btn-reject { background: white; color: #ef4444; border: 1px solid #ef4444; }
     .btn-reject:hover:not(:disabled) { background: #ef4444; color: white; }
@@ -261,7 +261,7 @@ import { UsersService, User } from '../../../core/services/users.service';
       width: 100%; padding: 9px 12px 9px 36px; border: 1px solid #ddd;
       border-radius: 8px; font-size: 0.875rem; box-sizing: border-box;
     }
-    .search-bar input:focus { outline: none; border-color: #2d6a1f; box-shadow: 0 0 0 3px rgba(45,106,31,0.1); }
+    .search-bar input:focus { outline: none; border-color: #9f7338; box-shadow: 0 0 0 3px rgba(159,115,56,0.1); }
 
     /* Table */
     .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e9ecef; }
@@ -278,7 +278,7 @@ import { UsersService, User } from '../../../core/services/users.service';
     .table-member { display: flex; align-items: center; gap: 12px; }
     .table-avatar {
       width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+      background: linear-gradient(135deg, #9f7338, #c9a15d);
       color: white; font-size: 0.78rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
@@ -293,8 +293,8 @@ import { UsersService, User } from '../../../core/services/users.service';
     }
     .role-admin { background: #dbeafe; color: #1e40af; }
     .role-superadmin { background: #ede9fe; color: #5b21b6; }
-    .role-player { background: #d1fae5; color: #065f46; }
-    .status-active { background: #d1fae5; color: #065f46; }
+    .role-player { background: #f4ead6; color: #7a5626; }
+    .status-active { background: #f4ead6; color: #7a5626; }
     .status-pending { background: #fef3c7; color: #92400e; }
     .status-rejected { background: #fee2e2; color: #991b1b; }
 
@@ -386,3 +386,5 @@ export class AdminUsersComponent implements OnInit {
     this.router.navigate(['/player/dashboard']);
   }
 }
+
+

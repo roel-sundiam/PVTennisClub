@@ -26,6 +26,7 @@ export class AnalyticsTrackService {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...payload, timestamp: new Date().toISOString() }),
+        credentials: 'omit',
         keepalive: true,
       }).catch(() => {});
     } catch {

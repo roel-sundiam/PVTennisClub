@@ -469,7 +469,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         margin: 0 auto;
       }
       .card-header {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         padding: 1.5rem 2rem;
         display: flex;
         align-items: center;
@@ -547,7 +547,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         text-transform: uppercase;
       }
       .grid-title {
-        color: #2d6a1f;
+        color: #9f7338;
         font-size: 1.1rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -560,7 +560,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         content: '';
         width: 4px;
         height: 20px;
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         border-radius: 2px;
         margin-right: 0.8rem;
       }
@@ -636,13 +636,13 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
           inset 0 1px 1px rgba(255, 255, 255, 0.8);
       }
       .action-card.payments {
-        border: 1px solid rgba(34, 197, 94, 0.3);
+        border: 1px solid rgba(201, 161, 93, 0.3);
       }
       .action-card.payments:hover {
         background: linear-gradient(135deg, rgba(209, 250, 229, 0.9), rgba(167, 243, 208, 0.9));
-        border-color: rgba(34, 197, 94, 0.6);
+        border-color: rgba(201, 161, 93, 0.6);
         box-shadow:
-          0 20px 48px rgba(34, 197, 94, 0.15),
+          0 20px 48px rgba(201, 161, 93, 0.15),
           inset 0 1px 1px rgba(255, 255, 255, 0.8);
       }
       .action-card.directory {
@@ -713,29 +713,29 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
       }
       .approvals-badge-clear {
-        background: rgba(34, 197, 94, 0.9);
+        background: rgba(201, 161, 93, 0.9);
         color: #fff;
-        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        box-shadow: 0 2px 8px rgba(201, 161, 93, 0.3);
       }
 
       /* Finance Card */
       .action-card.finance {
-        border: 1px solid rgba(16, 185, 129, 0.3);
+        border: 1px solid rgba(184, 137, 66, 0.3);
       }
       .action-card.finance:hover {
         background: linear-gradient(135deg, rgba(209, 250, 229, 0.9), rgba(167, 243, 208, 0.9));
-        border-color: rgba(16, 185, 129, 0.6);
-        box-shadow: 0 20px 48px rgba(16, 185, 129, 0.15), inset 0 1px 1px rgba(255,255,255,0.8);
+        border-color: rgba(184, 137, 66, 0.6);
+        box-shadow: 0 20px 48px rgba(184, 137, 66, 0.15), inset 0 1px 1px rgba(255,255,255,0.8);
       }
-      .action-card.finance .card-icon { color: #10b981; }
+      .action-card.finance .card-icon { color: #b88942; }
       .action-card.finance:hover .card-icon {
         transform: scale(1.3) rotateZ(-8deg);
-        filter: drop-shadow(0 4px 8px rgba(16, 185, 129, 0.4));
+        filter: drop-shadow(0 4px 8px rgba(184, 137, 66, 0.4));
       }
       .finance-badge {
-        background: rgba(16, 185, 129, 0.9);
+        background: rgba(184, 137, 66, 0.9);
         color: #fff;
-        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        box-shadow: 0 2px 8px rgba(184, 137, 66, 0.3);
       }
 
       /* Admin Dashboard Card */
@@ -791,9 +791,9 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
       }
       .payments-badge {
-        background: rgba(34, 197, 94, 0.9);
+        background: rgba(201, 161, 93, 0.9);
         color: #fff;
-        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        box-shadow: 0 2px 8px rgba(201, 161, 93, 0.3);
       }
       .directory-badge {
         background: rgba(168, 85, 247, 0.9);
@@ -876,7 +876,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
           0 16px 32px rgba(0, 0, 0, 0.15),
           0 -6px 12px rgba(255, 255, 255, 0.9) inset,
           0 6px 12px rgba(0, 0, 0, 0.08) inset,
-          0 0 20px rgba(45, 106, 31, 0.2);
+          0 0 20px rgba(159, 115, 56, 0.2);
       }
       .card-icon {
         font-size: 2.5rem;
@@ -893,10 +893,10 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         color: #f59e0b;
       }
       .action-card.reservations .card-icon {
-        color: #2d6a1f;
+        color: #9f7338;
       }
       .action-card.payments .card-icon {
-        color: #22c55e;
+        color: #c9a15d;
       }
       .action-card.directory .card-icon {
         color: #a855f7;
@@ -917,7 +917,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
       .action-card.payments:hover .card-icon {
         transform: scale(1.3) rotateZ(-8deg);
-        filter: drop-shadow(0 4px 8px rgba(34, 197, 94, 0.4));
+        filter: drop-shadow(0 4px 8px rgba(201, 161, 93, 0.4));
       }
       .action-card.directory:hover .card-icon {
         transform: scale(1.3) rotateZ(-8deg);
@@ -939,7 +939,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         transition: color 0.3s;
       }
       .action-card:hover h4 {
-        color: #2d6a1f;
+        color: #9f7338;
       }
       .action-card p {
         font-size: 0.75rem;
@@ -959,7 +959,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
       .card-meta {
         font-size: 0.78rem;
-        color: #2d6a1f;
+        color: #9f7338;
         font-weight: 600;
         opacity: 0;
         display: inline-block;
@@ -1101,7 +1101,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         gap: 1rem;
       }
       .calendar-nav-btn {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         color: white;
         border: none;
         width: 40px;
@@ -1113,16 +1113,16 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 8px rgba(45, 106, 31, 0.2);
+        box-shadow: 0 2px 8px rgba(159, 115, 56, 0.2);
       }
       .calendar-nav-btn:hover {
         transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.3);
+        box-shadow: 0 4px 12px rgba(159, 115, 56, 0.3);
       }
       .calendar-title {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #2d6a1f;
+        color: #9f7338;
         margin: 0;
         text-transform: capitalize;
         flex: 1;
@@ -1137,7 +1137,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       .weekday {
         text-align: center;
         font-weight: 700;
-        color: #2d6a1f;
+        color: #9f7338;
         font-size: 0.85rem;
         padding: 0.5rem 0;
         text-transform: uppercase;
@@ -1187,9 +1187,9 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         justify-content: center;
       }
       .indicator-badge.reservation-badge {
-        background: #dcfce7;
-        color: #15803d;
-        border: 1px solid #86efac;
+        background: #f2e4c9;
+        color: #9f7338;
+        border: 1px solid #e6d2ad;
       }
       .indicator-badge.session-badge {
         background: #fef3c7;
@@ -1201,10 +1201,10 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         background: #fafafa;
       }
       .calendar-day.today {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         color: white;
         font-weight: 700;
-        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.3);
+        box-shadow: 0 4px 12px rgba(159, 115, 56, 0.3);
       }
       .calendar-day.today .indicator-badge.reservation-badge {
         background: rgba(255, 255, 255, 0.3);
@@ -1217,19 +1217,19 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         border-color: rgba(255, 255, 255, 0.5);
       }
       .calendar-day.has-event:not(.today) {
-        background: linear-gradient(135deg, rgba(61, 184, 105, 0.1), rgba(45, 106, 31, 0.1));
-        border-color: rgba(45, 106, 31, 0.3);
+        background: linear-gradient(135deg, rgba(184, 137, 66, 0.1), rgba(159, 115, 56, 0.1));
+        border-color: rgba(159, 115, 56, 0.3);
       }
       .calendar-day:hover:not(.other-month) {
         transform: scale(1.08);
-        background: linear-gradient(135deg, rgba(61, 184, 105, 0.15), rgba(45, 106, 31, 0.15));
-        border-color: rgba(45, 106, 31, 0.5);
-        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.15);
+        background: linear-gradient(135deg, rgba(184, 137, 66, 0.15), rgba(159, 115, 56, 0.15));
+        border-color: rgba(159, 115, 56, 0.5);
+        box-shadow: 0 4px 12px rgba(159, 115, 56, 0.15);
       }
       .event-dot {
         width: 5px;
         height: 5px;
-        background: #3db869;
+        background: #b88942;
         border-radius: 50%;
         position: absolute;
         bottom: 4px;
@@ -1266,11 +1266,11 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .calendar-day.selected {
-        background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+        background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
         color: white;
         font-weight: 700;
-        border-color: #4a8a2a;
-        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.4);
+        border-color: #c9a15d;
+        box-shadow: 0 4px 12px rgba(159, 115, 56, 0.4);
       }
 
       .selected-day-section {
@@ -1311,9 +1311,9 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .clear-selection-btn {
-        background: rgba(45, 106, 31, 0.1);
+        background: rgba(159, 115, 56, 0.1);
         border: none;
-        color: #2d6a1f;
+        color: #9f7338;
         width: 36px;
         height: 36px;
         border-radius: 8px;
@@ -1326,7 +1326,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .clear-selection-btn:hover {
-        background: rgba(45, 106, 31, 0.2);
+        background: rgba(159, 115, 56, 0.2);
         transform: scale(1.05);
       }
 
@@ -1335,9 +1335,9 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         text-align: center;
         color: #94a3b8;
         font-style: italic;
-        background: linear-gradient(135deg, rgba(45, 106, 31, 0.05), rgba(74, 138, 42, 0.05));
+        background: linear-gradient(135deg, rgba(159, 115, 56, 0.05), rgba(201, 161, 93, 0.05));
         border-radius: 16px;
-        border: 2px dashed rgba(45, 106, 31, 0.1);
+        border: 2px dashed rgba(159, 115, 56, 0.1);
       }
 
       .courts-container {
@@ -1365,11 +1365,11 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #2d6a1f, #4a8a2a);
+        background: linear-gradient(90deg, #9f7338, #c9a15d);
       }
 
       .court-section:hover {
-        box-shadow: 0 8px 24px rgba(45, 106, 31, 0.12);
+        box-shadow: 0 8px 24px rgba(159, 115, 56, 0.12);
         transform: translateY(-2px);
       }
 
@@ -1399,7 +1399,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .court-count {
-        background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+        background: linear-gradient(135deg, #9f7338, #c9a15d);
         color: white;
         padding: 0.5rem 1rem;
         border-radius: 20px;
@@ -1408,7 +1408,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         border: none;
         min-width: 40px;
         text-align: center;
-        box-shadow: 0 2px 8px rgba(45, 106, 31, 0.3);
+        box-shadow: 0 2px 8px rgba(159, 115, 56, 0.3);
       }
 
       .reservations-list {
@@ -1420,7 +1420,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         background: linear-gradient(135deg, #f8fafc, #f0f4f8);
         border-radius: 12px;
         padding: 1.25rem;
-        border: 1px solid rgba(45, 106, 31, 0.1);
+        border: 1px solid rgba(159, 115, 56, 0.1);
         transition: all 0.3s ease;
         cursor: pointer;
         position: relative;
@@ -1428,8 +1428,8 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
 
       .reservation-card:hover {
         background: linear-gradient(135deg, #fff, #f5fafc);
-        box-shadow: 0 4px 12px rgba(45, 106, 31, 0.15);
-        border-color: rgba(45, 106, 31, 0.3);
+        box-shadow: 0 4px 12px rgba(159, 115, 56, 0.15);
+        border-color: rgba(159, 115, 56, 0.3);
         transform: translateX(4px);
       }
 
@@ -1456,7 +1456,7 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .time-value {
-        color: #2d6a1f;
+        color: #9f7338;
         font-weight: 800;
       }
 
@@ -1467,8 +1467,8 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .court-badge {
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-        color: #15803d;
+        background: linear-gradient(135deg, #f2e4c9, #e6d2ad);
+        color: #9f7338;
         padding: 0.4rem 0.9rem;
         border-radius: 8px;
         font-size: 0.8rem;
@@ -1494,12 +1494,12 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
         font-size: 0.95rem;
         flex-wrap: wrap;
         padding: 0.75rem;
-        background: rgba(45, 106, 31, 0.05);
+        background: rgba(159, 115, 56, 0.05);
         border-radius: 8px;
       }
 
       .players-label {
-        color: #2d6a1f;
+        color: #9f7338;
         font-weight: 700;
         text-transform: uppercase;
         font-size: 0.75rem;
@@ -1519,13 +1519,13 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .player-name.reserver {
-        background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+        background: linear-gradient(135deg, #9f7338, #c9a15d);
         color: white;
         padding: 0.35rem 0.75rem;
         border-radius: 6px;
         border: none;
         font-weight: 700;
-        box-shadow: 0 2px 6px rgba(45, 106, 31, 0.3);
+        box-shadow: 0 2px 6px rgba(159, 115, 56, 0.3);
       }
 
       .separator {
@@ -1550,10 +1550,10 @@ import { ReservationService, Reservation, ReservationPlayer } from '../../../cor
       }
 
       .status-badge.confirmed {
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-        color: #15803d;
+        background: linear-gradient(135deg, #f2e4c9, #e6d2ad);
+        color: #9f7338;
         border: none;
-        box-shadow: 0 2px 6px rgba(45, 106, 31, 0.2);
+        box-shadow: 0 2px 6px rgba(159, 115, 56, 0.2);
       }
 
       @media (max-width: 768px) {
@@ -1905,3 +1905,5 @@ export class PlayerDashboardComponent implements OnInit {
     return { court1, court2 };
   }
 }
+
+

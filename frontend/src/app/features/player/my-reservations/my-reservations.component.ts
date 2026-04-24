@@ -229,7 +229,7 @@ type Tab = 'upcoming' | 'history' | 'all';
       width: 100%; max-width: 680px; overflow: hidden;
     }
     .card-header {
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
       padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem;
     }
     .back-btn {
@@ -253,10 +253,10 @@ type Tab = 'upcoming' | 'history' | 'all';
       border-bottom: 3px solid transparent; margin-bottom: -2px;
       transition: all .2s; display: flex; align-items: center; justify-content: center; gap: .4rem;
     }
-    .tab-btn:hover { color: #2d6a1f; background: #f0faf0; }
-    .tab-btn.active { color: #2d6a1f; border-bottom-color: #2d6a1f; background: #fff; }
+    .tab-btn:hover { color: #9f7338; background: #f8f1e4; }
+    .tab-btn.active { color: #9f7338; border-bottom-color: #9f7338; background: #fff; }
     .tab-badge {
-      background: #2d6a1f; color: #fff;
+      background: #9f7338; color: #fff;
       border-radius: 10px; padding: .1rem .45rem; font-size: .72rem; font-weight: 700;
     }
 
@@ -268,7 +268,7 @@ type Tab = 'upcoming' | 'history' | 'all';
     .empty-state p { margin-bottom: 1.25rem; }
     .cta-btn {
       padding: .65rem 1.5rem;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
       color: #fff; border: none; border-radius: 10px; font-size: .95rem; font-weight: 700; cursor: pointer;
     }
 
@@ -280,12 +280,12 @@ type Tab = 'upcoming' | 'history' | 'all';
       display: flex; align-items: center; justify-content: space-between; gap: 1rem;
       box-shadow: 0 1px 4px rgba(0,0,0,.06);
     }
-    .upcoming-card { border-left-color: #2d6a1f; }
+    .upcoming-card { border-left-color: #9f7338; }
     .cancelled-card { border-left-color: #9ca3af; opacity: .7; }
     .all-card { border-left-color: #d1d5db; }
-    .all-card.mine { border-left-color: #2d6a1f; background: #f0faf0; }
+    .all-card.mine { border-left-color: #9f7338; background: #f8f1e4; }
 
-    .res-court { font-weight: 800; color: #2d6a1f; font-size: .95rem; }
+    .res-court { font-weight: 800; color: #9f7338; font-size: .95rem; }
     .res-date { font-size: .85rem; color: #374151; margin-top: .15rem; }
     .res-time {
       font-size: .88rem; font-weight: 600; color: #1a1a1a;
@@ -295,7 +295,7 @@ type Tab = 'upcoming' | 'history' | 'all';
     .res-with { font-size: .8rem; color: #6b7280; margin-top: .1rem; font-style: italic; }
     .lights-tag { font-size: .78rem; color: #92400e; background: #fef3c7; border-radius: 4px; padding: .1rem .35rem; }
     .you-tag {
-      display: inline-block; background: #d1fae5; color: #065f46;
+      display: inline-block; background: #f4ead6; color: #7a5626;
       border-radius: 4px; padding: .05rem .35rem; font-size: .72rem; font-weight: 700;
       margin-left: .25rem; vertical-align: middle;
     }
@@ -304,7 +304,7 @@ type Tab = 'upcoming' | 'history' | 'all';
     .status-badge {
       padding: .2rem .6rem; border-radius: 10px; font-size: .76rem; font-weight: 700; text-transform: capitalize;
     }
-    .status-confirmed { background: #d1fae5; color: #065f46; }
+    .status-confirmed { background: #f4ead6; color: #7a5626; }
     .status-cancelled { background: #f3f4f6; color: #6b7280; }
 
     /* Icon cancel button */
@@ -326,7 +326,7 @@ type Tab = 'upcoming' | 'history' | 'all';
     /* Date groups */
     .date-group { margin-bottom: 1.5rem; }
     .date-label {
-      font-size: .8rem; font-weight: 700; color: #2d6a1f;
+      font-size: .8rem; font-weight: 700; color: #9f7338;
       text-transform: uppercase; letter-spacing: .6px;
       padding: .3rem 0 .6rem; border-bottom: 1px solid #e5e7eb; margin-bottom: .65rem;
     }
@@ -370,7 +370,7 @@ type Tab = 'upcoming' | 'history' | 'all';
       display: flex; align-items: center; gap: .65rem;
       font-size: .88rem; color: #374151; text-align: left;
     }
-    .modal-detail-row i { color: #2d6a1f; width: 16px; text-align: center; flex-shrink: 0; }
+    .modal-detail-row i { color: #9f7338; width: 16px; text-align: center; flex-shrink: 0; }
 
     .modal-actions { display: flex; gap: .75rem; width: 100%; }
     .modal-btn {
@@ -520,3 +520,5 @@ export class MyReservationsComponent implements OnInit {
   goBack() { this.router.navigate(['/player/dashboard']); }
   reserve() { this.router.navigate(['/player/reserve']); }
 }
+
+

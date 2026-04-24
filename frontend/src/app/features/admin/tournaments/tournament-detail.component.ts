@@ -791,7 +791,7 @@ interface PlayerStat {
     /* ── Layout ──────────────────────────────────────────────────── */
     .page-wrap {
       position: relative; min-height: 100vh; padding: 20px;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
     }
     .court-bg {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -825,7 +825,7 @@ interface PlayerStat {
     .type-singles { background: #dbeafe; color: #1e40af; }
     .type-doubles { background: #fef3c7; color: #92400e; }
     .status-draft   { background: #f1f5f9; color: #475569; }
-    .status-active  { background: #d1fae5; color: #065f46; }
+    .status-active  { background: #f4ead6; color: #7a5626; }
     .status-completed { background: #ede9fe; color: #5b21b6; }
 
     .header-stats { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -833,9 +833,9 @@ interface PlayerStat {
       display: flex; flex-direction: column; align-items: center;
       padding: 6px 14px; background: #f1f5f9; border-radius: 20px; min-width: 52px;
     }
-    .stat-pill-green { background: #d1fae5; }
+    .stat-pill-green { background: #f4ead6; }
     .stat-num { font-size: 1rem; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
-    .stat-pill-green .stat-num { color: #065f46; }
+    .stat-pill-green .stat-num { color: #7a5626; }
     .stat-lbl { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 0.4px; }
 
     /* ── Action bar ──────────────────────────────────────────────── */
@@ -856,7 +856,7 @@ interface PlayerStat {
       cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;
     }
     .btn-action:disabled { opacity: 0.45; cursor: not-allowed; }
-    .btn-generate { background: #2d6a1f; color: white; }
+    .btn-generate { background: #9f7338; color: white; }
     .btn-generate:hover:not(:disabled) { background: #245517; }
     .btn-complete { background: #7c3aed; color: white; }
     .btn-complete:hover { background: #6d28d9; }
@@ -874,10 +874,10 @@ interface PlayerStat {
       border-bottom: 3px solid transparent; margin-bottom: -2px;
       transition: all 0.15s; white-space: nowrap; display: flex; align-items: center; gap: 7px;
     }
-    .tab-btn:hover { color: #2d6a1f; }
-    .tab-btn.active { color: #2d6a1f; border-bottom-color: #2d6a1f; }
+    .tab-btn:hover { color: #9f7338; }
+    .tab-btn.active { color: #9f7338; border-bottom-color: #9f7338; }
     .tab-badge {
-      background: #d1fae5; color: #065f46; font-size: 0.7rem; font-weight: 700;
+      background: #f4ead6; color: #7a5626; font-size: 0.7rem; font-weight: 700;
       padding: 2px 7px; border-radius: 10px;
     }
 
@@ -895,15 +895,15 @@ interface PlayerStat {
     }
     .panel-title { font-size: 0.82rem; font-weight: 700; color: #374151; display: flex; align-items: center; gap: 7px; }
     .panel-count {
-      background: #2d6a1f; color: white; font-size: 0.7rem; font-weight: 700;
+      background: #9f7338; color: white; font-size: 0.7rem; font-weight: 700;
       padding: 2px 8px; border-radius: 10px;
     }
     .btn-random-matches {
-      margin-left: auto; padding: 4px 10px; background: #f0fdf4; color: #2d6a1f;
-      border: 1.5px solid #bbf7d0; border-radius: 6px; font-size: 0.72rem; font-weight: 700;
+      margin-left: auto; padding: 4px 10px; background: #f8f1e4; color: #9f7338;
+      border: 1.5px solid #e6d2ad; border-radius: 6px; font-size: 0.72rem; font-weight: 700;
       cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s;
     }
-    .btn-random-matches:hover:not(:disabled) { background: #dcfce7; border-color: #2d6a1f; }
+    .btn-random-matches:hover:not(:disabled) { background: #f2e4c9; border-color: #9f7338; }
     .btn-random-matches:disabled { opacity: 0.5; cursor: not-allowed; }
     .panel-empty { padding: 32px 16px; text-align: center; color: #94a3b8; }
     .panel-empty i { font-size: 1.8rem; display: block; margin-bottom: 8px; }
@@ -929,7 +929,7 @@ interface PlayerStat {
 
     .player-avatar {
       width: 32px; height: 32px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
-      background: linear-gradient(135deg, #2d6a1f, #4a8a2a);
+      background: linear-gradient(135deg, #9f7338, #c9a15d);
       color: white; font-size: 0.7rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
     }
@@ -950,7 +950,7 @@ interface PlayerStat {
       width: 100%; padding: 7px 10px 7px 28px; border: 1px solid #ddd; border-radius: 6px;
       font-size: 0.875rem; box-sizing: border-box;
     }
-    .search-bar input:focus { outline: none; border-color: #2d6a1f; }
+    .search-bar input:focus { outline: none; border-color: #9f7338; }
 
     .user-search-list { max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; }
     .user-row {
@@ -959,21 +959,21 @@ interface PlayerStat {
       transition: background 0.12s;
     }
     .user-row:last-child { border-bottom: none; }
-    .user-row:hover:not(.enrolled) { background: #f0fdf4; }
+    .user-row:hover:not(.enrolled) { background: #f8f1e4; }
     .user-row.enrolled { opacity: 0.5; cursor: default; }
     .user-name { flex: 1; font-size: 0.875rem; color: #374151; }
-    .enrolled-tag { font-size: 0.75rem; font-weight: 700; color: #2d6a1f; display: flex; align-items: center; gap: 4px; }
+    .enrolled-tag { font-size: 0.75rem; font-weight: 700; color: #9f7338; display: flex; align-items: center; gap: 4px; }
     .add-tag { font-size: 0.75rem; font-weight: 600; color: #94a3b8; display: flex; align-items: center; gap: 4px; }
-    .user-row:hover:not(.enrolled) .add-tag { color: #2d6a1f; }
+    .user-row:hover:not(.enrolled) .add-tag { color: #9f7338; }
 
     .form-field { padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
     .form-field label { font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.4px; }
     .form-field select {
       padding: 7px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.875rem; background: white; width: 100%;
     }
-    .form-field select:focus { outline: none; border-color: #2d6a1f; }
+    .form-field select:focus { outline: none; border-color: #9f7338; }
     .btn-add-team {
-      margin: 10px 14px 14px; padding: 9px; background: #2d6a1f; color: white;
+      margin: 10px 14px 14px; padding: 9px; background: #9f7338; color: white;
       border: none; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
       cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
@@ -982,11 +982,11 @@ interface PlayerStat {
 
     .bracket-preview-bar {
       margin-top: 20px; padding: 12px 16px;
-      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px;
+      background: #f8f1e4; border: 1px solid #e6d2ad; border-radius: 8px;
       font-size: 0.875rem; color: #374151; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
     }
-    .bracket-preview-bar i { color: #2d6a1f; }
-    .bracket-preview-bar strong { color: #2d6a1f; }
+    .bracket-preview-bar i { color: #9f7338; }
+    .bracket-preview-bar strong { color: #9f7338; }
 
     /* ── Bracket (match rows) ────────────────────────────────────── */
     .champion-banner {
@@ -1006,9 +1006,9 @@ interface PlayerStat {
       display: flex; align-items: center; gap: 6px;
     }
     .swap-loading {
-      font-size: 0.82rem; color: #2d6a1f; font-weight: 600; margin-bottom: 12px;
+      font-size: 0.82rem; color: #9f7338; font-weight: 600; margin-bottom: 12px;
       display: flex; align-items: center; gap: 8px;
-      background: #f0fdf4; border: 1px solid #bbf7d0;
+      background: #f8f1e4; border: 1px solid #e6d2ad;
       padding: 8px 12px; border-radius: 8px;
     }
     .match-rows { display: flex; flex-direction: column; }
@@ -1023,9 +1023,9 @@ interface PlayerStat {
     .slot-draggable:active { cursor: grabbing; }
     .slot-dragging { opacity: 0.35 !important; }
     .slot-drag-over {
-      background: #f0fdf4; border-radius: 6px;
-      outline: 2px dashed #2d6a1f; outline-offset: 2px;
-      color: #2d6a1f !important; font-weight: 700;
+      background: #f8f1e4; border-radius: 6px;
+      outline: 2px dashed #9f7338; outline-offset: 2px;
+      color: #9f7338 !important; font-weight: 700;
     }
 
     .row-round-chip {
@@ -1043,7 +1043,7 @@ interface PlayerStat {
     .row-player.row-winner { font-weight: 700; color: #1a1a1a; }
     .row-player.row-loser  { opacity: 0.5; }
     .row-win-flag {
-      background: #2d6a1f; color: white; font-size: 0.62rem; font-weight: 800;
+      background: #9f7338; color: white; font-size: 0.62rem; font-weight: 800;
       padding: 1px 5px; border-radius: 4px;
     }
     .row-vs { font-size: 0.78rem; color: #cbd5e1; font-weight: 600; flex-shrink: 0; }
@@ -1054,7 +1054,7 @@ interface PlayerStat {
       border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: #64748b;
       cursor: pointer; transition: all 0.15s; width: 100%; justify-content: center;
     }
-    .btn-add-match:hover { border-color: #2d6a1f; color: #2d6a1f; background: #f0fdf4; }
+    .btn-add-match:hover { border-color: #9f7338; color: #9f7338; background: #f8f1e4; }
     .btn-add-match i { font-size: 0.9rem; }
 
     /* ── Schedule cards ──────────────────────────────────────────── */
@@ -1087,8 +1087,8 @@ interface PlayerStat {
     }
     .sched-player:last-child { justify-content: flex-end; text-align: right; }
     .sched-avatar { font-size: 1.3rem; color: #cbd5e1; flex-shrink: 0; }
-    .sched-winner { color: #2d6a1f; font-weight: 700; }
-    .sched-winner .sched-avatar { color: #2d6a1f; }
+    .sched-winner { color: #9f7338; font-weight: 700; }
+    .sched-winner .sched-avatar { color: #9f7338; }
     .sched-loser { opacity: 0.45; }
     .sched-trophy { font-size: 1rem; flex-shrink: 0; }
     .sched-vs {
@@ -1112,13 +1112,13 @@ interface PlayerStat {
     }
     .chip-upcoming  { background: #f1f5f9; color: #475569; }
     .chip-ongoing   { background: #fef3c7; color: #92400e; }
-    .chip-completed { background: #d1fae5; color: #065f46; }
+    .chip-completed { background: #f4ead6; color: #7a5626; }
     .btn-edit-row {
       padding: 5px 10px; border: 1.5px solid #e2e8f0; border-radius: 6px;
       background: white; color: #475569; font-size: 0.78rem; font-weight: 600;
       cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.12s;
     }
-    .btn-edit-row:hover { border-color: #2d6a1f; color: #2d6a1f; background: #f0fdf4; }
+    .btn-edit-row:hover { border-color: #9f7338; color: #9f7338; background: #f8f1e4; }
     .row-actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
     .icon-btn {
       width: 30px; height: 30px; border-radius: 6px; border: none;
@@ -1133,9 +1133,9 @@ interface PlayerStat {
     .chip-editable:hover { background: #bfdbfe; }
     .chip-edit-icon { font-size: 0.6rem; opacity: 0.5; margin-left: 3px; }
     .round-name-input {
-      padding: 2px 8px; border: 1.5px solid #2d6a1f; border-radius: 12px;
+      padding: 2px 8px; border: 1.5px solid #9f7338; border-radius: 12px;
       font-size: 0.72rem; font-weight: 700; color: #1e40af; background: #dbeafe;
-      width: 110px; outline: none; box-shadow: 0 0 0 2px rgba(45,106,31,0.15);
+      width: 110px; outline: none; box-shadow: 0 0 0 2px rgba(159,115,56,0.15);
     }
 
     /* ── Info tab ────────────────────────────────────────────────── */
@@ -1144,20 +1144,20 @@ interface PlayerStat {
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
       padding: 16px 20px; border-radius: 12px; margin-bottom: 20px; border: 1.5px solid;
     }
-    .vis-published { background: #f0fdf4; border-color: #bbf7d0; }
+    .vis-published { background: #f8f1e4; border-color: #e6d2ad; }
     .vis-inactive  { background: #fafafa; border-color: #e2e8f0; }
     .vis-left { display: flex; align-items: center; gap: 14px; }
     .vis-icon {
       width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
     }
-    .vis-published .vis-icon { background: #d1fae5; color: #065f46; }
+    .vis-published .vis-icon { background: #f4ead6; color: #7a5626; }
     .vis-inactive  .vis-icon { background: #f1f5f9; color: #94a3b8; }
     .vis-title { font-size: 0.95rem; font-weight: 700; color: #1a1a1a; }
     .vis-sub { font-size: 0.78rem; color: #64748b; margin-top: 2px; max-width: 340px; }
     .btn-vis {
       padding: 9px 18px; border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 700;
       cursor: pointer; display: flex; align-items: center; gap: 7px; transition: all 0.15s; flex-shrink: 0;
-      background: #2d6a1f; color: white;
+      background: #9f7338; color: white;
     }
     .btn-vis:hover:not(:disabled) { background: #245517; }
     .btn-vis:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -1222,7 +1222,7 @@ interface PlayerStat {
       margin: 0; font-size: 0.95rem; font-weight: 700; color: #1a1a1a;
       display: flex; align-items: center; gap: 8px;
     }
-    .modal-header h3 i { color: #2d6a1f; }
+    .modal-header h3 i { color: #9f7338; }
     .modal-close {
       background: none; border: none; font-size: 1rem; color: #888;
       cursor: pointer; padding: 4px 8px; border-radius: 4px;
@@ -1240,7 +1240,7 @@ interface PlayerStat {
       font-size: 0.9rem; background: white; width: 100%; box-sizing: border-box;
     }
     .modal-field input:focus, .modal-field select:focus {
-      outline: none; border-color: #2d6a1f; box-shadow: 0 0 0 3px rgba(45,106,31,0.1);
+      outline: none; border-color: #9f7338; box-shadow: 0 0 0 3px rgba(159,115,56,0.1);
     }
     .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
@@ -1249,10 +1249,10 @@ interface PlayerStat {
       flex: 1; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 8px;
       cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;
     }
-    .winner-opt:hover { border-color: #2d6a1f; background: #f0fdf4; }
-    .winner-opt.winner-selected { border-color: #2d6a1f; background: #f0fdf4; }
+    .winner-opt:hover { border-color: #9f7338; background: #f8f1e4; }
+    .winner-opt.winner-selected { border-color: #9f7338; background: #f8f1e4; }
     .winner-names { display: flex; flex-direction: column; gap: 2px; font-size: 0.875rem; font-weight: 600; color: #374151; }
-    .winner-check { font-size: 0.75rem; font-weight: 700; color: #2d6a1f; display: flex; align-items: center; gap: 4px; }
+    .winner-check { font-size: 0.75rem; font-weight: 700; color: #9f7338; display: flex; align-items: center; gap: 4px; }
     .winner-vs {
       display: flex; align-items: center; font-size: 0.78rem; font-weight: 700; color: #94a3b8; flex-shrink: 0;
     }
@@ -1263,8 +1263,8 @@ interface PlayerStat {
       text-align: center; background: white; color: #1a1a1a;
       margin-top: 2px;
     }
-    .score-input:focus { outline: none; border-color: #2d6a1f; box-shadow: 0 0 0 2px rgba(45,106,31,0.1); }
-    .winner-selected .score-input { border-color: #86efac; }
+    .score-input:focus { outline: none; border-color: #9f7338; box-shadow: 0 0 0 2px rgba(159,115,56,0.1); }
+    .winner-selected .score-input { border-color: #e6d2ad; }
 
     .modal-sm { max-width: 380px; }
     .delete-header { gap: 12px; align-items: flex-start; }
@@ -1282,7 +1282,7 @@ interface PlayerStat {
     }
     .btn-delete-confirm:hover { background: #b91c1c; }
     .btn-complete-confirm {
-      padding: 9px 20px; background: #2d6a1f; color: white; border: none;
+      padding: 9px 20px; background: #9f7338; color: white; border: none;
       border-radius: 8px; font-size: 0.875rem; font-weight: 600;
       cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;
     }
@@ -1304,7 +1304,7 @@ interface PlayerStat {
     .btn-cancel:hover:not(:disabled) { background: #f0f0f0; }
     .btn-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-confirm {
-      padding: 9px 20px; background: #2d6a1f; color: white; border: none;
+      padding: 9px 20px; background: #9f7338; color: white; border: none;
       border-radius: 8px; font-size: 0.875rem; font-weight: 600;
       cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;
     }
@@ -1331,19 +1331,19 @@ interface PlayerStat {
       color: #888; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid #eee;
     }
     .rank-table td { padding: 11px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
-    .rank-table tbody tr:hover td { background: #f0fdf4; }
+    .rank-table tbody tr:hover td { background: #f8f1e4; }
     .rc-rank { width: 56px; text-align: center; }
     .rc-played, .rc-won, .rc-lost { width: 70px; text-align: center; color: #555; }
     .rc-pts { width: 90px; text-align: right; }
     .medal { font-size: 1.2rem; }
     .rank-num { font-weight: 700; color: #999; }
-    .wins-val { font-weight: 700; color: #2d6a1f; }
+    .wins-val { font-weight: 700; color: #9f7338; }
     .player-cell { display: flex; align-items: center; gap: 9px; }
     .player-av {
       width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
     }
     .av-init {
-      background: #2d6a1f; color: white; font-size: 0.75rem;
+      background: #9f7338; color: white; font-size: 0.75rem;
       font-weight: 700; display: flex; align-items: center; justify-content: center;
     }
     .player-nm { font-weight: 600; color: #1a1a1a; }
@@ -1355,7 +1355,7 @@ interface PlayerStat {
     .place-badge.place-runner-up { background: #f1f5f9; color: #475569; }
     .place-badge.place-semifinalist { background: #fce7f3; color: #9d174d; }
     .place-badge.place-quarterfinalist { background: #ede9fe; color: #5b21b6; }
-    .place-badge.place-participant { background: #f0fdf4; color: #166534; }
+    .place-badge.place-participant { background: #f8f1e4; color: #7a5626; }
     .pts-chip {
       display: inline-flex; align-items: center; gap: 5px;
       background: #fef3c7; color: #92400e; padding: 4px 10px;
@@ -1998,3 +1998,5 @@ export class AdminTournamentDetailComponent implements OnInit {
     return classes[placement] ?? 'place-badge place-participant';
   }
 }
+
+

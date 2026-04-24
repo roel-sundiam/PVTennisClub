@@ -20,6 +20,8 @@ const chargeSchema = new mongoose.Schema(
       withoutLightFee: { type: Number, default: 0 },
       lightFee: { type: Number, default: 0 },
       ballBoyFee: { type: Number, default: 0 },
+      guestFee: { type: Number, default: 0 },
+      rentalFee: { type: Number, default: 0 },
     },
     chargeType: { type: String, enum: ["reservation", "session"], default: "reservation" },
     status: { type: String, enum: ["unpaid", "paid"], default: "unpaid" },

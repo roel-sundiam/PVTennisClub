@@ -246,7 +246,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
   styles: [`
     .page-wrap {
       position: relative; min-height: 100vh; padding: 20px;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
     }
     .court-bg {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -276,11 +276,11 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       padding: 6px 14px; background: #f1f5f9; border-radius: 20px; min-width: 52px;
     }
     .stat-pill-amber { background: #fef3c7; }
-    .stat-pill-green { background: #d1fae5; }
+    .stat-pill-green { background: #f4ead6; }
     .stat-pill-purple { background: #ede9fe; }
     .stat-num { font-size: 1rem; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
     .stat-pill-amber .stat-num { color: #92400e; }
-    .stat-pill-green .stat-num { color: #065f46; }
+    .stat-pill-green .stat-num { color: #7a5626; }
     .stat-pill-purple .stat-num { color: #5b21b6; }
     .stat-lbl { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 0.4px; }
 
@@ -295,17 +295,17 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.15s;
       white-space: nowrap; display: flex; align-items: center; gap: 6px;
     }
-    .tab-btn:hover { color: #2d6a1f; }
-    .tab-btn.active { color: #2d6a1f; border-bottom-color: #2d6a1f; }
+    .tab-btn:hover { color: #9f7338; }
+    .tab-btn.active { color: #9f7338; border-bottom-color: #9f7338; }
     .tab-badge {
-      background: #2d6a1f; color: white; font-size: 0.7rem; font-weight: 700;
+      background: #9f7338; color: white; font-size: 0.7rem; font-weight: 700;
       padding: 2px 7px; border-radius: 10px;
     }
     .tab-btn-create {
-      margin-left: auto; color: #2d6a1f; border: 1.5px solid #2d6a1f;
+      margin-left: auto; color: #9f7338; border: 1.5px solid #9f7338;
       border-radius: 8px; padding: 7px 14px; margin-bottom: 6px;
     }
-    .tab-btn-create:hover { background: #2d6a1f; color: white; border-bottom-color: transparent; }
+    .tab-btn-create:hover { background: #9f7338; color: white; border-bottom-color: transparent; }
 
     /* Body */
     .card-body { padding: 24px; }
@@ -317,7 +317,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
     .empty-title { font-size: 1rem; font-weight: 700; color: #444; margin: 0 0 6px; }
     .empty-sub { font-size: 0.875rem; color: #888; margin: 0 0 20px; }
     .btn-create-empty {
-      padding: 10px 20px; background: #2d6a1f; color: white;
+      padding: 10px 20px; background: #9f7338; color: white;
       border: none; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
       cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
     }
@@ -332,15 +332,15 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     }
     .tournament-card:hover {
-      border-color: #2d6a1f; background: #f0fdf4;
-      box-shadow: 0 4px 16px rgba(45,106,31,0.1);
+      border-color: #9f7338; background: #f8f1e4;
+      box-shadow: 0 4px 16px rgba(159,115,56,0.1);
     }
     .tournament-icon-wrap {
       width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
     }
     .icon-draft { background: #f1f5f9; color: #64748b; }
-    .icon-active { background: #d1fae5; color: #2d6a1f; }
+    .icon-active { background: #f4ead6; color: #9f7338; }
     .icon-completed { background: #ede9fe; color: #7c3aed; }
 
     .tournament-info { flex: 1; min-width: 0; }
@@ -350,7 +350,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
     }
     .meta-dot { color: #ccc; }
     .meta-item { display: flex; align-items: center; gap: 4px; }
-    .meta-progress { color: #2d6a1f; font-weight: 600; }
+    .meta-progress { color: #9f7338; font-weight: 600; }
     .meta-date { color: #aaa; }
     .type-badge {
       padding: 2px 9px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; text-transform: capitalize;
@@ -370,7 +370,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; text-transform: capitalize;
     }
     .status-draft { background: #f1f5f9; color: #475569; }
-    .status-active { background: #d1fae5; color: #065f46; }
+    .status-active { background: #f4ead6; color: #7a5626; }
     .status-completed { background: #ede9fe; color: #5b21b6; }
 
     .btn-manage {
@@ -378,7 +378,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       border-radius: 6px; font-size: 0.78rem; font-weight: 600; color: #475569;
       cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s;
     }
-    .tournament-card:hover .btn-manage { border-color: #2d6a1f; color: #2d6a1f; }
+    .tournament-card:hover .btn-manage { border-color: #9f7338; color: #9f7338; }
 
     /* Modal */
     .modal-backdrop {
@@ -400,7 +400,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       margin: 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;
       display: flex; align-items: center; gap: 8px;
     }
-    .modal-header h3 i { color: #2d6a1f; }
+    .modal-header h3 i { color: #9f7338; }
     .modal-close {
       background: none; border: none; font-size: 1rem; color: #888;
       cursor: pointer; padding: 4px 8px; border-radius: 4px;
@@ -416,15 +416,15 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       padding: 9px 12px; border: 1px solid #ddd; border-radius: 8px;
       font-size: 0.9rem; background: white; width: 100%; box-sizing: border-box;
     }
-    .modal-field input:focus { outline: none; border-color: #2d6a1f; box-shadow: 0 0 0 3px rgba(45,106,31,0.1); }
+    .modal-field input:focus { outline: none; border-color: #9f7338; box-shadow: 0 0 0 3px rgba(159,115,56,0.1); }
     .type-select { display: flex; gap: 10px; }
     .type-opt {
       flex: 1; padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 8px;
       background: white; cursor: pointer; font-size: 0.875rem; font-weight: 600;
       color: #555; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 7px;
     }
-    .type-opt:hover { border-color: #2d6a1f; color: #2d6a1f; }
-    .type-opt.active { border-color: #2d6a1f; background: #2d6a1f; color: white; }
+    .type-opt:hover { border-color: #9f7338; color: #9f7338; }
+    .type-opt.active { border-color: #9f7338; background: #9f7338; color: white; }
     .modal-error {
       background: #fef2f2; color: #b91c1c; border: 1px solid #fca5a5;
       border-radius: 8px; padding: 8px 12px; font-size: 0.82rem;
@@ -441,7 +441,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
     .btn-cancel:hover:not(:disabled) { background: #f0f0f0; }
     .btn-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-confirm {
-      padding: 9px 20px; background: #2d6a1f; color: white;
+      padding: 9px 20px; background: #9f7338; color: white;
       border: none; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
       cursor: pointer; transition: background 0.15s; display: flex; align-items: center; gap: 6px;
     }
@@ -458,7 +458,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
     }
     .rankings-table td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
     .rankings-table tr.rank-top td { background: #fffbeb; }
-    .rankings-table tbody tr:hover td { background: #f0fdf4; }
+    .rankings-table tbody tr:hover td { background: #f8f1e4; }
     .col-rank { width: 60px; text-align: center; }
     .col-played { width: 110px; text-align: center; color: #666; }
     .col-pts { width: 110px; text-align: right; }
@@ -469,7 +469,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
       width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
     }
     .avatar-initials {
-      background: #2d6a1f; color: white; font-size: 0.8rem;
+      background: #9f7338; color: white; font-size: 0.8rem;
       font-weight: 700; display: flex; align-items: center; justify-content: center;
     }
     .player-name { font-weight: 600; color: #1a1a1a; }
@@ -489,7 +489,7 @@ import { TournamentService, Tournament, RankingEntry } from '../../../core/servi
     }
     .pts-guide-grid { display: flex; gap: 32px; flex-wrap: wrap; }
     .pts-guide-col { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 5px; }
-    .pts-guide-type { font-size: 0.75rem; font-weight: 700; color: #2d6a1f; margin-bottom: 4px; text-transform: uppercase; }
+    .pts-guide-type { font-size: 0.75rem; font-weight: 700; color: #9f7338; margin-bottom: 4px; text-transform: uppercase; }
     .pts-guide-row {
       display: flex; justify-content: space-between; font-size: 0.8rem; color: #555;
     }
@@ -595,3 +595,5 @@ export class AdminTournamentsComponent implements OnInit {
     });
   }
 }
+
+

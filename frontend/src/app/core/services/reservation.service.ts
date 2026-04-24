@@ -35,7 +35,11 @@ export class ReservationService {
     return this.http.get<AvailabilityResult>(`${this.base}/availability`, { params });
   }
 
-  create(payload: { court: 1 | 2; date: string; timeSlot: string; players?: string[] }) {
+  create(payload: {
+    court: 1 | 2; date: string; timeSlot: string; players?: string[];
+    lightsRequested?: boolean; ballBoy?: boolean; isHoliday?: boolean; guestCount?: number;
+    rentals?: { balls50?: number; balls100?: number; ballMachine?: boolean; rackets?: number };
+  }) {
     return this.http.post<Reservation>(this.base, payload);
   }
 

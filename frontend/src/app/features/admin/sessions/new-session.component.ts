@@ -40,7 +40,7 @@ interface CourtSessionRow {
     <div class="new-session-shell">
       <div class="page-header">
         <div class="hero-copy">
-          <p class="eyebrow">Punta Verde Tennis Club</p>
+          <p class="eyebrow">Tenisu Tennis Club</p>
           <h2>Record Session</h2>
           <p class="subtitle">
             Log court sessions, players, trainings, and instantly compute billing.
@@ -428,7 +428,7 @@ interface CourtSessionRow {
         border-radius: 999px;
         white-space: nowrap;
         border-color: #bfd7c8;
-        color: #14532d;
+        color: #7a5626;
         background: rgba(255, 255, 255, 0.9);
       }
       .session-form {
@@ -657,9 +657,9 @@ interface CourtSessionRow {
         cursor: pointer;
       }
       .btn-paid.active {
-        background: #dcfce7;
-        color: #166534;
-        border-color: #86efac;
+        background: #f2e4c9;
+        color: #7a5626;
+        border-color: #e6d2ad;
       }
       .btn-remove {
         background: #fff5f5;
@@ -754,8 +754,8 @@ interface CourtSessionRow {
         color: #0f172a;
       }
       .summary-net {
-        background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
-        border-color: #bbf7d0;
+        background: linear-gradient(135deg, #faf3e6, #f8f1e4);
+        border-color: #e6d2ad;
       }
       @media (max-width: 980px) {
         .page-header {
@@ -1207,3 +1207,5 @@ export class NewSessionComponent implements OnInit {
     );
   }
 }
+
+

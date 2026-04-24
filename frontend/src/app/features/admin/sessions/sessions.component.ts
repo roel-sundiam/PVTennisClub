@@ -11,7 +11,7 @@ import { SessionsService, Session } from '../../../core/services/sessions.servic
     <div class="sessions-shell">
       <div class="hero">
         <div>
-          <p class="hero-kicker">Punta Verde Tennis Club</p>
+          <p class="hero-kicker">Tenisu Tennis Club</p>
           <h2>Admin Sessions</h2>
           <p class="subtitle">
             Professional ledger of courts, players, trainings, rates, and totals.
@@ -311,8 +311,8 @@ import { SessionsService, Session } from '../../../core/services/sessions.servic
         --ink: #0f172a;
         --muted: #64748b;
         --line: #e2e8f0;
-        --success-bg: #dcfce7;
-        --success-ink: #166534;
+        --success-bg: #f2e4c9;
+        --success-ink: #7a5626;
         --warn-bg: #fef3c7;
         --warn-ink: #92400e;
         display: block;
@@ -688,3 +688,4 @@ export class AdminSessionsComponent implements OnInit {
     );
   }
 }
+

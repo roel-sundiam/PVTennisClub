@@ -326,7 +326,7 @@ const APP_SERVICE_RATE = 0.02;
   styles: [`
     .page-wrap {
       position: relative; min-height: 100vh; padding: 20px;
-      background: linear-gradient(135deg, #2d6a1f 0%, #4a8a2a 100%);
+      background: linear-gradient(135deg, #9f7338 0%, #c9a15d 100%);
     }
     .court-bg {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -354,22 +354,22 @@ const APP_SERVICE_RATE = 0.02;
       font-size: 0.9rem; font-weight: 600; color: #888; cursor: pointer;
       border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.15s;
     }
-    .tab-btn:hover { color: #2d6a1f; }
-    .tab-btn.active { color: #2d6a1f; border-bottom-color: #2d6a1f; }
+    .tab-btn:hover { color: #9f7338; }
+    .tab-btn.active { color: #9f7338; border-bottom-color: #9f7338; }
 
     .card-body { padding: 24px; }
     .loading { text-align: center; padding: 40px; color: #999; }
 
     .summary-bar {
       display: flex; flex-wrap: wrap; gap: 12px;
-      padding: 16px 20px; background: #f0fdf4; border-radius: 10px;
-      border: 1px solid #bbf7d0; margin-bottom: 20px;
+      padding: 16px 20px; background: #f8f1e4; border-radius: 10px;
+      border: 1px solid #e6d2ad; margin-bottom: 20px;
     }
     .app-service-bar { background: #eff6ff; border-color: #bfdbfe; }
     .summary-item {
       flex: 1; min-width: 100px; text-align: center; padding: 8px 12px; border-radius: 8px;
     }
-    .summary-item.highlight { background: #2d6a1f; }
+    .summary-item.highlight { background: #9f7338; }
     .summary-item.highlight .summary-value { color: #fff; font-size: 1.3rem; }
     .summary-item.highlight .summary-label { color: rgba(255,255,255,0.8); }
     .summary-item.highlight-blue { background: #1d4ed8; border-radius: 8px; }
@@ -378,7 +378,7 @@ const APP_SERVICE_RATE = 0.02;
     .summary-item.highlight-red { background: #dc2626; border-radius: 8px; }
     .summary-item.highlight-red .summary-value { color: #fff; font-size: 1.1rem; }
     .summary-item.highlight-red .summary-label { color: rgba(255,255,255,0.8); }
-    .summary-item.highlight-green { background: #16a34a; border-radius: 8px; }
+    .summary-item.highlight-green { background: #b88942; border-radius: 8px; }
     .summary-item.highlight-green .summary-value { color: #fff; font-size: 1.1rem; }
     .summary-item.highlight-green .summary-label { color: rgba(255,255,255,0.8); }
     .summary-value { font-size: 1.1rem; font-weight: 700; color: #1a1a1a; }
@@ -506,7 +506,7 @@ const APP_SERVICE_RATE = 0.02;
       padding: 7px 10px; border: 1px solid #ddd; border-radius: 6px;
       font-size: 0.85rem; background: white; min-width: 130px;
     }
-    .filter-group select:focus, .filter-group input:focus { outline: none; border-color: #2d6a1f; }
+    .filter-group select:focus, .filter-group input:focus { outline: none; border-color: #9f7338; }
 
     .empty-state { text-align: center; padding: 48px 20px; color: #999; }
     .empty-state span { font-size: 48px; display: block; margin-bottom: 12px; }
@@ -520,7 +520,7 @@ const APP_SERVICE_RATE = 0.02;
     }
     .finance-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; color: #333; }
     .finance-table tbody tr:hover { background: #fafff9; }
-    .col-amount { text-align: right; font-weight: 700; color: #2d6a1f; }
+    .col-amount { text-align: right; font-weight: 700; color: #9f7338; }
     .col-service { color: #1d4ed8 !important; }
     .col-date { color: #555; font-size: 0.82rem; white-space: nowrap; }
     .col-player { font-weight: 600; color: #1a1a1a; }
@@ -534,7 +534,7 @@ const APP_SERVICE_RATE = 0.02;
     .type-badge.type-reservation { background: #dbeafe; color: #1e40af; }
     .method-badge { padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; }
     .method-badge.method-gcash { background: #ede9fe; color: #5b21b6; }
-    .method-badge.method-cash { background: #dcfce7; color: #166534; }
+    .method-badge.method-cash { background: #f2e4c9; color: #7a5626; }
     .method-badge.method-bank-transfer { background: #e0f2fe; color: #0369a1; }
     .court-chip {
       padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;
@@ -543,7 +543,7 @@ const APP_SERVICE_RATE = 0.02;
 
     tfoot td { padding: 12px; background: #f8f9fa; font-weight: 700; border-top: 2px solid #e9ecef; }
     .foot-label { color: #555; font-size: 0.82rem; }
-    .foot-total { font-size: 1rem; color: #2d6a1f; }
+    .foot-total { font-size: 1rem; color: #9f7338; }
 
     @media (max-width: 640px) {
       .summary-bar { gap: 8px; }
@@ -675,3 +675,5 @@ export class FinanceComponent implements OnInit {
     this.router.navigate(['/admin/dashboard']);
   }
 }
+
+
