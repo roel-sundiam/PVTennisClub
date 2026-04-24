@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
-const APP_ID = 'pvtennisclub';
+function resolveAppId(): string {
+  const host = window.location.hostname;
+  if (host.includes('tenisu')) return 'tenisuapp';
+  return 'pvtennisclub';
+}
+const APP_ID = resolveAppId();
 
 @Injectable({ providedIn: 'root' })
 export class AnalyticsTrackService {
@@ -17,11 +22,12 @@ export class AnalyticsTrackService {
 
   private send(payload: object): void {
     try {
-      const blob = new Blob(
-        [JSON.stringify({ ...payload, timestamp: new Date().toISOString() })],
-        { type: 'application/json' }
-      );
-      navigator.sendBeacon(this.endpoint, blob);
+      fetch(this.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, timestamp: new Date().toISOString() }),
+        keepalive: true,
+      }).catch(() => {});
     } catch {
       // Tracking must never interrupt the user
     }
